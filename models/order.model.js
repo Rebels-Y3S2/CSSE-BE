@@ -1,39 +1,32 @@
 import mongoose from "mongoose";
 import Config from "../utils/config.js";
+import {v4} from 'uuid';
 
 const { Schema } = mongoose;
 
 const orderSchema = new Schema({
-    item: {
-        type: Schema.Types.ObjectId, ref:'Item',
-        required: true
-    },
+    itemIds: [{ type: Schema.Types.ObjectId, ref: 'Item' }],
     referenceNo: {
         type: String,
+        default: v4(),
         required: true
     },
     supplierDetails: {
         type: Schema.Types.ObjectId, ref:'User',
     },
-    quantity: {
-        type: Number,
-        required: true
-    },
+    quantity: [{ type: Number, required: true }],
     description: {
         type: String,
         required: true
     },
-    agreedPrice: {
-        type: Number,
-        required: true
-    },
+    agreedPrice: [{ type: Number, required: true }],
     status: {
         type: Number,
         default: 0
     },
     isAccepted: {
-        type: String,
-        default: "false"
+        type: Number,
+        default: 0
     },
     
     },

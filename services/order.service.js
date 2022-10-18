@@ -12,27 +12,30 @@ export const addOrder = (req, res) => {
                 }
             });
         else
-            res.send(order);
+            res.send({isSuccess: true, order});
     });
 }
 
 export const getOrders = (req, res) => {
     Order.find()
         .select("_id referenceNo description status isAccepted createdAt")
-        .populate('item supplierDetails quantity agreedPrice')
+        .populate('itemIds supplierDetails quantity agreedPrice')
         .exec()
         .then(formattedReq => {
             res.status(200).json({
+                isSuccess: true,
                 count: formattedReq.length,
                 Item: formattedReq.map(d => {
                     return {
                         _id: d._id,
-                        item: {
-                            itemId : d.item._id,
-                            itemName: d.item.itemName,
-                            stock : d.item.stock,
-                            unitPrice: d.item.unitPrice,
-                        },
+                        items: d.itemIds.map(data => {
+                            return {
+                                itemId : data._id,
+                                itemName: data.itemName,
+                                stock : data.stock,
+                                unitPrice: data.unitPrice,
+                            };
+                        }),
                         supplierDetails: {
                             name: d.supplierDetails.name || "",
                             email: d.supplierDetails.email || "",
@@ -61,20 +64,23 @@ export const getOrders = (req, res) => {
 export const getOrdersByOrderId = (req, res) => {
     const order = req.params.id;
     Order.find({_id: order})
-        .populate('item supplierDetails quantity agreedPrice')
+        .populate('itemIds supplierDetails quantity agreedPrice')
         .exec()
         .then(formattedReq => {
             res.status(200).json({
+                isSuccess: true,
                 count: formattedReq.length,
                 Item: formattedReq.map(d => {
                     return {
                         _id: d._id,
-                        item: {
-                            itemId : d.item._id,
-                            itemName: d.item.itemName,
-                            stock : d.item.stock,
-                            unitPrice: d.item.unitPrice,
-                        },
+                        items: d.itemIds.map(data => {
+                            return {
+                                itemId : data._id,
+                                itemName: data.itemName,
+                                stock : data.stock,
+                                unitPrice: data.unitPrice,
+                            };
+                        }),
                         supplierDetails: {
                             name: d.supplierDetails.name || "",
                             email: d.supplierDetails.email || "",
@@ -111,7 +117,7 @@ export const updateOrder = (req, res) => {
                 }
             });
         else
-            res.send(response);
+            res.send({isSuccess: true , response});
     });
 }
 
@@ -127,6 +133,44 @@ export const deleteOrder = (req, res) => {
                 }
             });
         else
-            res.send(order);
+            res.send({isSuccess: true , order});
+    });
+}
+
+export const updateStatus = (req, res) =>{
+    const order = {id: req.params.id};
+    const status = {
+        status: req.body.status
+    }
+    Order.findOneAndUpdate(order, status, { runValidators: true }, (err, response) => {
+        if (err)
+            res.status(500).json({
+                message: {
+                    msgBody: "Unable to Update Status",
+                    actualError: err._message,
+                    msgError: true
+                }
+            });
+        else
+            res.send({isSuccess: true , response});
+    });
+}
+
+export const updateAcceptance = (req, res) =>{
+    const order = {id: req.params.id};
+    const isAccepted = {
+        isAccepted: req.body.isAccepted
+    }
+    Order.findOneAndUpdate(order, isAccepted, { runValidators: true }, (err, response) => {
+        if (err)
+            res.status(500).json({
+                message: {
+                    msgBody: "Unable to Update Acceptance",
+                    actualError: err._message,
+                    msgError: true
+                }
+            });
+        else
+            res.send({isSuccess: true , response});
     });
 }

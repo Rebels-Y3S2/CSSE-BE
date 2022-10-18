@@ -1,6 +1,6 @@
 import {register, login, updateUser, deleteUser, findUser, findUsers} from './user.service.js';
-import {addItem, getItems, updateItem, deleteItem, getItemsByItemId} from './item.service.js';
-import {addOrder, getOrders, getOrdersByOrderId, updateOrder, deleteOrder} from './order.service.js';
+import {addItem, getItems, updateItem, deleteItem, getItemsByItemId, updateItemStatus, updateItemAcceptance} from './item.service.js';
+import {addOrder, getOrders, getOrdersByOrderId, updateOrder, deleteOrder, updateStatus, updateAcceptance} from './order.service.js';
 
 export {
     // User
@@ -17,11 +17,15 @@ export {
     updateItem,
     deleteItem,
     getItemsByItemId,
+    updateItemStatus,
+    updateItemAcceptance,
 
     //order
     addOrder,
     getOrders,
     getOrdersByOrderId,
     updateOrder,
-    deleteOrder
+    deleteOrder,
+    updateStatus,
+    updateAcceptance
 }

@@ -104,3 +104,41 @@ export const deleteItem = (req, res) => {
             res.send(item);
     });
 }
+
+export const updateItemStatus = (req, res) =>{
+    const item = {id: req.params.id};
+    const status = {
+        status: req.body.status
+    }
+    Item.findOneAndUpdate(item, status, { runValidators: true }, (err, response) => {
+        if (err)
+            res.status(500).json({
+                message: {
+                    msgBody: "Unable to Update Status",
+                    actualError: err._message,
+                    msgError: true
+                }
+            });
+        else
+            res.send({isSuccess: true , response});
+    });
+}
+
+export const updateItemAcceptance = (req, res) =>{
+    const item = {id: req.params.id};
+    const isAccepted = {
+        isAccepted: req.body.isAccepted
+    }
+    Item.findOneAndUpdate(item, isAccepted, { runValidators: true }, (err, response) => {
+        if (err)
+            res.status(500).json({
+                message: {
+                    msgBody: "Unable to Update Acceptance",
+                    actualError: err._message,
+                    msgError: true
+                }
+            });
+        else
+            res.send({isSuccess: true , response});
+    });
+}
