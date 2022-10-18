@@ -2,37 +2,40 @@ import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import Joi from "joi";
 import validatePw from "joi-password-complexity";
+import Config from "../utils/config.js";
 
 const userSchema = new mongoose.Schema({
-		firstName: { type: String },
-		lastName: { type: String },
+		name: { type: String },
 		email: { type: String, required: true },
 		contactNo: { type: String },
-		role: { type: String, default: "PROCUREMENT" },
+		role: { type: String, default: Config.DEFAULT_ROLE },
 		password: { type: String, required: true },
-		pic: { type: String, default: "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg" },
+		description: { type: String },
+		address: { type: String },
+		imageUrl: { type: String, default: Config.DEFAULT_IMAGE },
 	},
 	{ timestamps: true }
 );
 
 userSchema.methods.generateAuthToken = function () {
 	const token = jwt.sign({ _id: this._id }, process.env.JWT_PRIVATEKEY, {
-		expiresIn: "7d",
+		expiresIn: Config.JWT__EXPIRED_IN,
 	});
 	return token;
 };
 
-const User = mongoose.model("user", userSchema);
+const User = mongoose.model("User", userSchema);
 
 const validate = (data) => {
 	const schema = Joi.object({
-		firstName: Joi.string().label("First Name"),
-		lastName: Joi.string().label("Last Name"),
-		email: Joi.string().email().required().label("Email"),
-        contactNo: Joi.string().label("Contact No"),
-		role: Joi.string().label("User Role"),
-		password: validatePw().required().label("Password"),
-		pic: Joi.string().label("Profile Pic"),
+		name: Joi.string().label(Config.NAME),
+		email: Joi.string().email().required().label(Config.EMAIL),
+        contactNo: Joi.string().label(Config.CONTACT_NO),
+		role: Joi.string().label(Config.USER_ROLE),
+		password: validatePw().required().label(Config.PASSWORD),
+		description: Joi.string().label(Config.DESCRIPTION),
+		address: Joi.string().label(Config.ADDRESS),
+		imageUrl: Joi.string().label(Config.IMAGE),
 	});
 	return schema.validate(data);
 };
