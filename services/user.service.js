@@ -48,7 +48,7 @@ export const register = async (req, res) => {
 		const user = await User.findOne({ email: req.body.email });
 		if (user)
 			return res
-				.status(409)
+				.status(HTTP.CONFLICT)
 				.send({ message: "User with given email already Exist!" });
 
         //To get salt string we will be using genSalt and storing it in the salt variable
@@ -96,7 +96,7 @@ export const updateUser = async(req, res) => {
 
     await User.findByIdAndUpdate(id, req.body, getUpdatedData, (error, updatedUser) => {
         !updatedUser ? 
-            res.status(404)
+            res.status(HTTP.NOT_FOUND)
                 .json(jsonResponse(false, updatedUser, "User not found!")) :
             error ? 
                 res.status(HTTP.BAD_REQUEST)
@@ -110,7 +110,7 @@ export const deleteUser = async(req, res) => {
     const id = req.params.id;
     await User.findByIdAndDelete(id, (error, deletedUser) => {
         !deletedUser ? 
-            res.status(404)
+            res.status(HTTP.NOT_FOUND)
                 .json(jsonResponse(false, deletedUser, "User not found!")) :
             error ? 
                 res.status(HTTP.BAD_REQUEST)
