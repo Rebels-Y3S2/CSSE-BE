@@ -1,17 +1,17 @@
 import mongoose from "mongoose";
-import {v4} from 'uuid';
+import {v4} from "uuid";
 
 const { Schema } = mongoose;
 
 const orderSchema = new Schema({
-    itemIds: [{ type: Schema.Types.ObjectId, ref: 'Item' }],
+    itemIds: [{ type: Schema.Types.ObjectId, ref: "Item" }],
     referenceNo: {
         type: String,
         default: v4(),
         required: true
     },
     supplierDetails: {
-        type: Schema.Types.ObjectId, ref:'User',
+        type: Schema.Types.ObjectId, ref: "User",
     },
     quantity: [{ type: Number, required: true }],
     description: {
