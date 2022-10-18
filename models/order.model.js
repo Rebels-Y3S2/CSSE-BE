@@ -19,7 +19,7 @@ const orderSchema = new Schema({
         type: String,
         required: true
     },
-    agreedPrice: [{ type: Number, required: true }],
+    agreedPrice: [{ type: String, required: true }],
     status: {
         type: Number,
         default: 0

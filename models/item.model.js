@@ -17,7 +17,7 @@ const itemSchema = new Schema({
         required: true
     },
     owner: {
-        type: Schema.Types.ObjectId, ref:'User',
+        type: Schema.Types.ObjectId, ref: 'User',
         required: true
     },
     status: {
