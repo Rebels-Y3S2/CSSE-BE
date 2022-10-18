@@ -13,7 +13,7 @@ const Config = {
     ADDRESS: "Address",
     IMAGE: "Image",
     //Item
-}
+};
 
 const Messages = {
     INVALID_EMAIL_OR_PASSWORD: "Invalid Email or Password",
@@ -31,7 +31,7 @@ const Messages = {
     UNABLE_TO_DELETE_ORDER: "Unable to Delete Order",
     UNABLE_TO_UPDATE_STATUS: "Unable to Update Status",
     UNABLE_TO_UPDATE_ACCEPTANCE: "Unable to Update Acceptance",
-}
+};
 
 const HTTP = {
     OK: 200,
@@ -42,27 +42,27 @@ const HTTP = {
     UNAUTHORIZED: 403,
     AUTHENTICATION_FAIL:401,
     CONFLICT: 401
-}
+};
 
 const RoleValueMap = [
-	{value: 0, key: 'PROCUMENT'},
-	{value: 1, key: 'SUPPLIER'},
-    {value: 2, key: 'MANAGER'}
+	{value: 0, key: "PROCUMENT"},
+	{value: 1, key: "SUPPLIER"},
+    {value: 2, key: "MANAGER"}
 ];
 
 const Status = [
-	{value: 0, key: 'Visible'},
-	{value: 1, key: 'Hidden'}
+	{value: 0, key: "Visible"},
+	{value: 1, key: "Hidden"}
 ];
 
 const Accepted = [
-	{value: 0, key: 'False'},
-	{value: 1, key: 'True'}
+	{value: 0, key: "False"},
+	{value: 1, key: "True"}
 ];
 
 const AprovedStatus = [
-	{value: 0, key: 'Declined'},
-	{value: 1, key: 'Approved'}
-]
+	{value: 0, key: "Declined"},
+	{value: 1, key: "Approved"}
+];
 
 export default {Config, Messages, HTTP, Status, RoleValueMap, Accepted, AprovedStatus};

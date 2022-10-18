@@ -17,12 +17,12 @@ export const addOrder = (req, res) => {
         else
             res.send({isSuccess: true, order});
     });
-}
+};
 
 export const getOrders = (req, res) => {
     Order.find()
         .select("_id referenceNo description status isAccepted createdAt")
-        .populate('itemIds supplierDetails quantity agreedPrice')
+        .populate("itemIds supplierDetails quantity agreedPrice")
         .exec()
         .then(formattedReq => {
             res.status(HTTP.OK).json({
@@ -62,12 +62,12 @@ export const getOrders = (req, res) => {
                 error: err
             });
         });
-}
+};
 
 export const getOrdersByOrderId = (req, res) => {
     const order = req.params.id;
     Order.find({_id: order})
-        .populate('itemIds supplierDetails quantity agreedPrice')
+        .populate("itemIds supplierDetails quantity agreedPrice")
         .exec()
         .then(formattedReq => {
             res.status(HTTP.OK).json({
@@ -107,7 +107,7 @@ export const getOrdersByOrderId = (req, res) => {
                 error: err
             });
         });        
-}
+};
 
 export const updateOrder = (req, res) => {
     Order.findOneAndUpdate({ _id: req.params.id }, req.body, { runValidators: true }, (err, response) => {
@@ -122,7 +122,7 @@ export const updateOrder = (req, res) => {
         else
             res.send({isSuccess: true , response});
     });
-}
+};
 
 export const deleteOrder = (req, res) => {
     const order = new Order(req.body);
@@ -138,13 +138,13 @@ export const deleteOrder = (req, res) => {
         else
             res.send({isSuccess: true , order});
     });
-}
+};
 
 export const updateStatus = (req, res) =>{
     const order = {id: req.params.id};
     const status = {
         status: req.body.status
-    }
+    };
     Order.findOneAndUpdate(order, status, { runValidators: true }, (err, response) => {
         if (err)
             res.status(HTTP.SERVER_ERROR).json({
@@ -157,13 +157,13 @@ export const updateStatus = (req, res) =>{
         else
             res.send({isSuccess: true , response});
     });
-}
+};
 
 export const updateAcceptance = (req, res) =>{
     const order = {id: req.params.id};
     const isAccepted = {
         isAccepted: req.body.isAccepted
-    }
+    };
     Order.findOneAndUpdate(order, isAccepted, { runValidators: true }, (err, response) => {
         if (err)
             res.status(HTTP.SERVER_ERROR).json({
@@ -176,4 +176,4 @@ export const updateAcceptance = (req, res) =>{
         else
             res.send({isSuccess: true , response});
     });
-}
+};

@@ -73,8 +73,8 @@ export const findUser = (req, res) => {
                 .json(jsonResponse(false, error, error._message)) :
             res.status(HTTP.CREATED)
                 .json(jsonResponse(true, users));
-        })
-}
+        });
+};
 
 export const findUsers = async(req, res) => {
     const filter = {};
@@ -88,8 +88,8 @@ export const findUsers = async(req, res) => {
                 .json(jsonResponse(false, error, error._message)) :
             res.status(HTTP.CREATED)
                 .json(jsonResponse(true, users));
-        })
-}
+        });
+};
 
 export const updateUser = async(req, res) => {
     const id = req.params.id;
@@ -105,7 +105,7 @@ export const updateUser = async(req, res) => {
                 res.status(HTTP.OK)
                     .json(jsonResponse(true, updatedUser));
     });       
-}
+};
 
 export const deleteUser = async(req, res) => {
     const id = req.params.id;
@@ -119,4 +119,4 @@ export const deleteUser = async(req, res) => {
                 res.status(HTTP.OK)
                     .json(jsonResponse(true, deletedUser));
     });       
-}
+};

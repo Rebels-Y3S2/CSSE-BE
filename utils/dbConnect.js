@@ -15,12 +15,12 @@ export const connect = () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-		db.on('connected', () => console.log(info('Connected to the database!😎😊😇')));
-    db.on('open', () =>console.log(success('DB connection successful!😁😗🤪')));
+		db.on("connected", () => console.log(info("Connected to the database!😎😊😇")));
+    db.on("open", () =>console.log(success("DB connection successful!😁😗🤪")));
 	} catch (error) {
 		console.log(error);
-		db.on('error', () => console.log(errorMsg('DB connection failed!😡😖🤬')));
-    db.on('diconnected', () => console.log(warning('Database disconnected!😥😔🤫')));
+		db.on("error", () => console.log(errorMsg("DB connection failed!😡😖🤬")));
+    db.on("diconnected", () => console.log(warning("Database disconnected!😥😔🤫")));
 	}
 };
 

@@ -17,12 +17,12 @@ export const addItem = (req, res) => {
         else
             res.send({isSuccess: true, item});
     });
-}
+};
 
 export const getItems = (req, res) => {
     Item.find()
         .select("_id itemName stock unitPrice createdAt")
-        .populate('owner')
+        .populate("owner")
         .exec()
         .then(formattedReq => {
             res.status(HTTP.OK).json({
@@ -48,12 +48,12 @@ export const getItems = (req, res) => {
                 error: err
             });
         });
-}
+};
 
 export const getItemsByItemId = (req, res) => {
     const item = req.params.id;
     Item.find({_id: item})
-        .populate('owner')
+        .populate("owner")
         .exec()
         .then(formattedReq => {
             res.status(HTTP.OK).json({
@@ -77,7 +77,7 @@ export const getItemsByItemId = (req, res) => {
                 error: err
             });
         });        
-}
+};
 
 export const updateItem = (req, res) => {
     Item.findOneAndUpdate({ _id: req.params.id }, req.body, { runValidators: true }, (err, response) => {
@@ -92,7 +92,7 @@ export const updateItem = (req, res) => {
         else
             res.send({isSuccess: true, response});
     });
-}
+};
 
 export const deleteItem = (req, res) => {
     const item = new Item(req.body);
@@ -108,13 +108,13 @@ export const deleteItem = (req, res) => {
         else
             res.send({isSuccess: true, item});
     });
-}
+};
 
 export const updateItemStatus = (req, res) =>{
     const item = {id: req.params.id};
     const status = {
         status: req.body.status
-    }
+    };
     Item.findOneAndUpdate(item, status, { runValidators: true }, (err, response) => {
         if (err)
             res.status(HTTP.SERVER_ERROR).json({
@@ -127,13 +127,13 @@ export const updateItemStatus = (req, res) =>{
         else
             res.send({isSuccess: true , response});
     });
-}
+};
 
 export const updateItemAcceptance = (req, res) =>{
     const item = {id: req.params.id};
     const isAccepted = {
         isAccepted: req.body.isAccepted
-    }
+    };
     Item.findOneAndUpdate(item, isAccepted, { runValidators: true }, (err, response) => {
         if (err)
             res.status(HTTP.SERVER_ERROR).json({
@@ -146,4 +146,4 @@ export const updateItemAcceptance = (req, res) =>{
         else
             res.send({isSuccess: true , response});
     });
-}
+};
