@@ -4,6 +4,7 @@ import HTTP from "../utils/config.js";
 
 export const addItem = (req, res) => {
     const item = new Item(req.body);
+    // eslint-disable-next-line no-unused-vars
     item.save((err, document) => {
         if (err)
             res.status(HTTP.SERVER_ERROR).json({

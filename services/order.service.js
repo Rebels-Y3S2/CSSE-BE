@@ -4,6 +4,7 @@ import HTTP from "../utils/config.js";
 
 export const addOrder = (req, res) => {
     const order = new Order(req.body);
+    // eslint-disable-next-line no-unused-vars
     order.save((err, document) => {
         if (err)
             res.status(HTTP.SERVER_ERROR).json({

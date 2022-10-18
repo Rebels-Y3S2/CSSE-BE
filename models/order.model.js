@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import Config from "../utils/config.js";
 import {v4} from 'uuid';
 
 const { Schema } = mongoose;

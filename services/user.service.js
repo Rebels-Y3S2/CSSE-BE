@@ -52,6 +52,7 @@ export const register = async (req, res) => {
 				.send({ message: Messages.USER_WITH_GIVEN_EMAIL_ALREADY_EXIST });
 
         //To get salt string we will be using genSalt and storing it in the salt variable
+		// eslint-disable-next-line no-undef
 		const salt = await bcrypt.genSalt(Number(process.env.SALT));
 
         //bcrypt password to hashing algorithm

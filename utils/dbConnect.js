@@ -10,6 +10,7 @@ const success = chalk.blue.bgGreen.bold;
 
 export const connect = () => {
   try {
+    // eslint-disable-next-line no-undef
     mongoose.connect(process.env.MONGO_DB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -17,9 +18,9 @@ export const connect = () => {
 		db.on('connected', () => console.log(info('Connected to the database!😎😊😇')));
     db.on('open', () =>console.log(success('DB connection successful!😁😗🤪')));
 	} catch (error) {
-		  console.log(error);
-		  db.on('error', (err) => console.log(errorMsg('DB connection failed!😡😖🤬')));
-    	db.on('diconnected', () => console.log(warning('Database disconnected!😥😔🤫')));
+		console.log(error);
+		db.on('error', () => console.log(errorMsg('DB connection failed!😡😖🤬')));
+    db.on('diconnected', () => console.log(warning('Database disconnected!😥😔🤫')));
 	}
 };
 

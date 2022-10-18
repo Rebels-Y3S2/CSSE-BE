@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema({
 );
 
 userSchema.methods.generateAuthToken = function () {
+	// eslint-disable-next-line no-undef
 	const token = jwt.sign({ _id: this._id }, process.env.JWT_PRIVATEKEY, {
 		expiresIn: Config.JWT__EXPIRED_IN,
 	});
