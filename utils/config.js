@@ -11,6 +11,7 @@ const Config = {
     USER_ROLE: "User Role",
     PASSWORD: "Password",
     DESCRIPTION: "Description",
+    SHOP_NAME: "Shop Name",
     ADDRESS: "Address",
     IMAGE: "Image",
 
@@ -18,4 +19,25 @@ const Config = {
     ITEM_SCHEMA_MODEL: "item",
 }
 
-export default Config;
+const RoleValueMap = [
+	{value: 0, key: 'PROCUMENT'},
+	{value: 1, key: 'SUPPLIER'},
+    {value: 2, key: 'MANAGER'}
+];
+
+const Status = [
+	{value: 0, key: 'Visible'},
+	{value: 1, key: 'Hidden'}
+];
+
+const Accepted = [
+	{value: 0, key: 'False'},
+	{value: 1, key: 'True'}
+];
+
+const AprovedStatus = [
+	{value: 0, key: 'Declined'},
+	{value: 1, key: 'Approved'}
+]
+
+export default {Config, Status, RoleValueMap, Accepted, AprovedStatus};

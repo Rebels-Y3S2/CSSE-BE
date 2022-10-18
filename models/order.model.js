@@ -3,21 +3,28 @@ import Config from "../utils/config.js";
 
 const { Schema } = mongoose;
 
-const itemSchema = new Schema({
-    itemName: {
+const orderSchema = new Schema({
+    item: {
+        type: Schema.Types.ObjectId, ref:'Item',
+        required: true
+    },
+    referenceNo: {
         type: String,
         required: true
     },
-    stock: {
+    supplierDetails: {
+        type: Schema.Types.ObjectId, ref:'User',
+    },
+    quantity: {
         type: Number,
         required: true
     },
-    unitPrice: {
+    description: {
         type: String,
         required: true
     },
-    owner: {
-        type: Schema.Types.ObjectId, ref:'User',
+    agreedPrice: {
+        type: Number,
         required: true
     },
     status: {
@@ -25,14 +32,14 @@ const itemSchema = new Schema({
         default: 0
     },
     isAccepted: {
-        type: Number,
-        default: 0
+        type: String,
+        default: "false"
     },
     
     },
     { timestamps: true }
 );
 
-const Item = mongoose.model("Item", itemSchema);
+const Order = mongoose.model("Order", orderSchema);
 
-export default Item;
+export default Order;
