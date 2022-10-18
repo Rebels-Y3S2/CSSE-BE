@@ -1,10 +1,8 @@
 const Config = {
     //user
-    USER_SCHEMA_MODEL: "user",
     DEFAULT_ROLE: "PROCUMENT",
     DEFAULT_IMAGE: "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
     JWT__EXPIRED_IN: "365d",
-    
     NAME: "Name",
     EMAIL: "Email",
     CONTACT_NO: "Contact No",
@@ -14,9 +12,28 @@ const Config = {
     SHOP_NAME: "Shop Name",
     ADDRESS: "Address",
     IMAGE: "Image",
-
     //Item
-    ITEM_SCHEMA_MODEL: "item",
+}
+
+const Messages = {
+    UNABLE_TO_ADD_ITEM: "Unable to add Item",
+    UNABLE_TO_UPDATE_ITEM: "Unable to Update Item",
+    UNABLE_TO_DELETE_ITEM: "Unable to Delete Item",
+    UNABLE_TO_ADD_ORDER: "Unable to add Order",
+    UNABLE_TO_UPDATE_ORDER: "Unable to Update Order",
+    UNABLE_TO_DELETE_ORDER: "Unable to Delete Order",
+    UNABLE_TO_UPDATE_STATUS: "Unable to Update Status",
+    UNABLE_TO_UPDATE_ACCEPTANCE: "Unable to Update Acceptance",
+}
+
+const HTTP = {
+    OK: 200,
+    CREATED: 201,
+    BAD_REQUEST: 400,
+    NOT_FOUND: 404,
+    SERVER_ERROR: 500,
+    UNAUTHORIZED: 403,
+    AUTHENTICATION_FAIL:401
 }
 
 const RoleValueMap = [
@@ -40,4 +57,4 @@ const AprovedStatus = [
 	{value: 1, key: 'Approved'}
 ]
 
-export default {Config, Status, RoleValueMap, Accepted, AprovedStatus};
+export default {Config, Messages, HTTP, Status, RoleValueMap, Accepted, AprovedStatus};

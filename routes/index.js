@@ -6,7 +6,7 @@ import UserRouter from "./user.routes.js";
 const ApiRouter = express.Router();
 
 ApiRouter.use("/users", UserRouter);
-ApiRouter.use("/item", ItemRouter);
-ApiRouter.use("/order", OrderRouter);
+ApiRouter.use("/items", ItemRouter);
+ApiRouter.use("/orders", OrderRouter);
 
 export default ApiRouter;

@@ -1,12 +1,14 @@
 import {Order} from "../models/index.js";
+import Messages from "../utils/config.js";
+import HTTP from "../utils/config.js";
 
 export const addOrder = (req, res) => {
     const order = new Order(req.body);
     order.save((err, document) => {
         if (err)
-            res.status(500).json({
+            res.status(HTTP.SERVER_ERROR).json({
                 message: {
-                    msgBody: "Unable to add Order",
+                    msgBody: Messages.UNABLE_TO_ADD_ITEM,
                     actualError: err._message,
                     msgError: true
                 }
@@ -22,7 +24,7 @@ export const getOrders = (req, res) => {
         .populate('itemIds supplierDetails quantity agreedPrice')
         .exec()
         .then(formattedReq => {
-            res.status(200).json({
+            res.status(HTTP.OK).json({
                 isSuccess: true,
                 count: formattedReq.length,
                 Item: formattedReq.map(d => {
@@ -55,7 +57,7 @@ export const getOrders = (req, res) => {
             });
         })
         .catch(err => {
-            res.status(500).json({
+            res.status(HTTP.SERVER_ERROR).json({
                 error: err
             });
         });
@@ -67,7 +69,7 @@ export const getOrdersByOrderId = (req, res) => {
         .populate('itemIds supplierDetails quantity agreedPrice')
         .exec()
         .then(formattedReq => {
-            res.status(200).json({
+            res.status(HTTP.OK).json({
                 isSuccess: true,
                 count: formattedReq.length,
                 Item: formattedReq.map(d => {
@@ -100,7 +102,7 @@ export const getOrdersByOrderId = (req, res) => {
             });
         })
         .catch(err => {
-            res.status(500).json({
+            res.status(HTTP.SERVER_ERROR).json({
                 error: err
             });
         });        
@@ -109,9 +111,9 @@ export const getOrdersByOrderId = (req, res) => {
 export const updateOrder = (req, res) => {
     Order.findOneAndUpdate({ _id: req.params.id }, req.body, { runValidators: true }, (err, response) => {
         if (err)
-            res.status(500).json({
+            res.status(HTTP.SERVER_ERROR).json({
                 message: {
-                    msgBody: "Unable to Update Order",
+                    msgBody: Messages.UNABLE_TO_UPDATE_ORDER,
                     actualError: err._message,
                     msgError: true
                 }
@@ -125,9 +127,9 @@ export const deleteOrder = (req, res) => {
     const order = new Order(req.body);
     Order.findByIdAndDelete(req.params.id, err => {
         if (err)
-            res.status(500).json({
+            res.status(HTTP.SERVER_ERROR).json({
                 message: {
-                    msgBody: "Unable to Delete Order",
+                    msgBody: Messages.UNABLE_TO_DELETE_ORDER,
                     actualError: err._message,
                     msgError: true
                 }
@@ -144,9 +146,9 @@ export const updateStatus = (req, res) =>{
     }
     Order.findOneAndUpdate(order, status, { runValidators: true }, (err, response) => {
         if (err)
-            res.status(500).json({
+            res.status(HTTP.SERVER_ERROR).json({
                 message: {
-                    msgBody: "Unable to Update Status",
+                    msgBody: Messages.UNABLE_TO_UPDATE_STATUS,
                     actualError: err._message,
                     msgError: true
                 }
@@ -163,9 +165,9 @@ export const updateAcceptance = (req, res) =>{
     }
     Order.findOneAndUpdate(order, isAccepted, { runValidators: true }, (err, response) => {
         if (err)
-            res.status(500).json({
+            res.status(HTTP.SERVER_ERROR).json({
                 message: {
-                    msgBody: "Unable to Update Acceptance",
+                    msgBody: Messages.UNABLE_TO_UPDATE_ACCEPTANCE,
                     actualError: err._message,
                     msgError: true
                 }

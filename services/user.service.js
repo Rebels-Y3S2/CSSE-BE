@@ -2,6 +2,9 @@ import {User, validate} from "../models/index.js";
 import bcrypt from "bcrypt";
 import Joi from "joi";
 import { jsonResponse } from "../utils/serviceUtilities.js";
+import Config from "../utils/config.js";
+import Messages from "../utils/config.js";
+import HTTP from "../utils/config.js";
 
 const validateUserData = (data) => {
 	const schema = Joi.object({
@@ -15,11 +18,11 @@ export const login = async (req, res) => {
 	try {
 		const { error } = validateUserData(req.body);
 		if (error)
-			return res.status(400).send({ message: error.details[0].message });
+			return res.status(HTTP.BAD_REQUEST).send({ message: error.details[0].message });
 
 		const user = await User.findOne({ email: req.body.email });
 		if (!user)
-			return res.status(401).send({ message: "Invalid Email or Password" });
+			return res.status(HTTP.AUTHENTICATION_FAIL).send({ message: "Invalid Email or Password" });
 
 		//check if entered password is valid
 		const isValidPassword = await bcrypt.compare(
@@ -27,12 +30,12 @@ export const login = async (req, res) => {
 			user.password
 		);
 		if (!isValidPassword)
-			return res.status(401).send({ message: "Invalid Email or Password" });
+			return res.status(HTTP.AUTHENTICATION_FAIL).send({ message: "Invalid Email or Password" });
 
 		const token = user.generateAuthToken();
-		res.status(200).send({ data: token, message: "Logged in successfully", userData: user });
+		res.status(HTTP.OK).send({ data: token, message: "Logged in successfully", userData: user });
 	} catch (error) {
-		res.status(500).send({ message: "Internal Server Error" });
+		res.status(HTTP.SERVER_ERROR).send({ message: "Internal Server Error" });
 	}
 };
 
@@ -40,7 +43,7 @@ export const register = async (req, res) => {
 	try {
 		const { error } = validate(req.body);
 		if (error)
-			return res.status(400).send({ message: error.details[0].message });
+			return res.status(HTTP.BAD_REQUEST).send({ message: error.details[0].message });
 
 		const user = await User.findOne({ email: req.body.email });
 		if (user)
@@ -55,9 +58,9 @@ export const register = async (req, res) => {
 		const hashPassword = await bcrypt.hash(req.body.password, salt);
 
 		await new User({ ...req.body, password: hashPassword }).save();
-		res.status(201).send({ message: "User created successfully", isSuccessfull: true });
+		res.status(HTTP.CREATED).send({ message: "User created successfully", isSuccessfull: true });
 	} catch (error) {
-		res.status(500).send({ message: "Internal Server Error", isSuccessfull: false });
+		res.status(HTTP.SERVER_ERROR).send({ message: "Internal Server Error", isSuccessfull: false });
 	}
 };
 
@@ -65,9 +68,9 @@ export const findUser = (req, res) => {
     const filter = { id: req.query.id || 'inavlidId' };
     User.findOne(filter, (error, users) => {
         error ?
-            res.status(500)
+            res.status(HTTP.SERVER_ERROR)
                 .json(jsonResponse(false, error, error._message)) :
-            res.status(201)
+            res.status(HTTP.CREATED)
                 .json(jsonResponse(true, users));
         })
 }
@@ -80,9 +83,9 @@ export const findUsers = async(req, res) => {
 	_id && (filter._id = _id);
     await User.find(filter, (error, users) => {
         error ?
-            res.status(500)
+            res.status(HTTP.SERVER_ERROR)
                 .json(jsonResponse(false, error, error._message)) :
-            res.status(201)
+            res.status(HTTP.CREATED)
                 .json(jsonResponse(true, users));
         })
 }
@@ -96,9 +99,9 @@ export const updateUser = async(req, res) => {
             res.status(404)
                 .json(jsonResponse(false, updatedUser, "User not found!")) :
             error ? 
-                res.status(400)
+                res.status(HTTP.BAD_REQUEST)
                     .json(jsonResponse(false, error, error._message)) :
-                res.status(200)
+                res.status(HTTP.OK)
                     .json(jsonResponse(true, updatedUser));
     });       
 }
@@ -110,9 +113,9 @@ export const deleteUser = async(req, res) => {
             res.status(404)
                 .json(jsonResponse(false, deletedUser, "User not found!")) :
             error ? 
-                res.status(400)
+                res.status(HTTP.BAD_REQUEST)
                     .json(jsonResponse(false, error, error._message)) :
-                res.status(200)
+                res.status(HTTP.OK)
                     .json(jsonResponse(true, deletedUser));
     });       
 }

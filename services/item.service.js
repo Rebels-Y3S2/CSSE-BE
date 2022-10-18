@@ -1,18 +1,20 @@
 import {Item} from "../models/index.js";
+import Messages from "../utils/config.js";
+import HTTP from "../utils/config.js";
 
 export const addItem = (req, res) => {
     const item = new Item(req.body);
     item.save((err, document) => {
         if (err)
-            res.status(500).json({
+            res.status(HTTP.SERVER_ERROR).json({
                 message: {
-                    msgBody: "Unable to add Item",
+                    msgBody: Messages.UNABLE_TO_ADD_ITEM,
                     actualError: err._message,
                     msgError: true
                 }
             });
         else
-            res.send(item);
+            res.send({isSuccess: true, item});
     });
 }
 
@@ -22,7 +24,8 @@ export const getItems = (req, res) => {
         .populate('owner')
         .exec()
         .then(formattedReq => {
-            res.status(200).json({
+            res.status(HTTP.OK).json({
+                isSuccess: true,
                 count: formattedReq.length,
                 Item: formattedReq.map(d => {
                     return {
@@ -40,7 +43,7 @@ export const getItems = (req, res) => {
             });
         })
         .catch(err => {
-            res.status(500).json({
+            res.status(HTTP.SERVER_ERROR).json({
                 error: err
             });
         });
@@ -52,7 +55,8 @@ export const getItemsByItemId = (req, res) => {
         .populate('owner')
         .exec()
         .then(formattedReq => {
-            res.status(200).json({
+            res.status(HTTP.OK).json({
+                isSuccess: true,
                 count: formattedReq.length,
                 Item: formattedReq.map(d => {
                     return {
@@ -68,7 +72,7 @@ export const getItemsByItemId = (req, res) => {
             });
         })
         .catch(err => {
-            res.status(500).json({
+            res.status(HTTP.SERVER_ERROR).json({
                 error: err
             });
         });        
@@ -77,15 +81,15 @@ export const getItemsByItemId = (req, res) => {
 export const updateItem = (req, res) => {
     Item.findOneAndUpdate({ _id: req.params.id }, req.body, { runValidators: true }, (err, response) => {
         if (err)
-            res.status(500).json({
+            res.status(HTTP.SERVER_ERROR).json({
                 message: {
-                    msgBody: "Unable to Update Item",
+                    msgBody: Messages.UNABLE_TO_UPDATE_ITEM,
                     actualError: err._message,
                     msgError: true
                 }
             });
         else
-            res.send(response);
+            res.send({isSuccess: true, response});
     });
 }
 
@@ -93,15 +97,15 @@ export const deleteItem = (req, res) => {
     const item = new Item(req.body);
     Item.findByIdAndDelete(req.params.id, err => {
         if (err)
-            res.status(500).json({
+            res.status(HTTP.SERVER_ERROR).json({
                 message: {
-                    msgBody: "Unable to Delete Item",
+                    msgBody: Messages.UNABLE_TO_DELETE_ITEM,
                     actualError: err._message,
                     msgError: true
                 }
             });
         else
-            res.send(item);
+            res.send({isSuccess: true, item});
     });
 }
 
@@ -112,9 +116,9 @@ export const updateItemStatus = (req, res) =>{
     }
     Item.findOneAndUpdate(item, status, { runValidators: true }, (err, response) => {
         if (err)
-            res.status(500).json({
+            res.status(HTTP.SERVER_ERROR).json({
                 message: {
-                    msgBody: "Unable to Update Status",
+                    msgBody: Messages.UNABLE_TO_UPDATE_STATUS,
                     actualError: err._message,
                     msgError: true
                 }
@@ -131,9 +135,9 @@ export const updateItemAcceptance = (req, res) =>{
     }
     Item.findOneAndUpdate(item, isAccepted, { runValidators: true }, (err, response) => {
         if (err)
-            res.status(500).json({
+            res.status(HTTP.SERVER_ERROR).json({
                 message: {
-                    msgBody: "Unable to Update Acceptance",
+                    msgBody: Messages.UNABLE_TO_UPDATE_ACCEPTANCE,
                     actualError: err._message,
                     msgError: true
                 }
