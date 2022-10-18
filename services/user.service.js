@@ -8,8 +8,8 @@ import HTTP from "../utils/config.js";
 
 const validateUserData = (data) => {
 	const schema = Joi.object({
-		email: Joi.string().email().required().label("Email"),
-		password: Joi.string().required().label("Password"),
+		email: Joi.string().email().required().label(Config.EMAIL),
+		password: Joi.string().required().label(Config.PASSWORD),
 	});
 	return schema.validate(data);
 };
@@ -22,7 +22,7 @@ export const login = async (req, res) => {
 
 		const user = await User.findOne({ email: req.body.email });
 		if (!user)
-			return res.status(HTTP.AUTHENTICATION_FAIL).send({ message: "Invalid Email or Password" });
+			return res.status(HTTP.AUTHENTICATION_FAIL).send({ message: Messages.INVALID_EMAIL_OR_PASSWORD });
 
 		//check if entered password is valid
 		const isValidPassword = await bcrypt.compare(
@@ -30,12 +30,12 @@ export const login = async (req, res) => {
 			user.password
 		);
 		if (!isValidPassword)
-			return res.status(HTTP.AUTHENTICATION_FAIL).send({ message: "Invalid Email or Password" });
+			return res.status(HTTP.AUTHENTICATION_FAIL).send({ message: Messages.INVALID_EMAIL_OR_PASSWORD });
 
 		const token = user.generateAuthToken();
-		res.status(HTTP.OK).send({ data: token, message: "Logged in successfully", userData: user });
+		res.status(HTTP.OK).send({ data: token, message: Messages.LOGGED_IN_SUCCESSFULLY, userData: user });
 	} catch (error) {
-		res.status(HTTP.SERVER_ERROR).send({ message: "Internal Server Error" });
+		res.status(HTTP.SERVER_ERROR).send({ message: Messages.INTERNAL_SERVER_ERROR });
 	}
 };
 
@@ -49,7 +49,7 @@ export const register = async (req, res) => {
 		if (user)
 			return res
 				.status(HTTP.CONFLICT)
-				.send({ message: "User with given email already Exist!" });
+				.send({ message: Messages.USER_WITH_GIVEN_EMAIL_ALREADY_EXIST });
 
         //To get salt string we will be using genSalt and storing it in the salt variable
 		const salt = await bcrypt.genSalt(Number(process.env.SALT));
@@ -58,14 +58,14 @@ export const register = async (req, res) => {
 		const hashPassword = await bcrypt.hash(req.body.password, salt);
 
 		await new User({ ...req.body, password: hashPassword }).save();
-		res.status(HTTP.CREATED).send({ message: "User created successfully", isSuccessfull: true });
+		res.status(HTTP.CREATED).send({ message: Messages.USER_CREATED_SUCCESSFULLY, isSuccessfull: true });
 	} catch (error) {
-		res.status(HTTP.SERVER_ERROR).send({ message: "Internal Server Error", isSuccessfull: false });
+		res.status(HTTP.SERVER_ERROR).send({ message: Messages.INTERNAL_SERVER_ERROR, isSuccessfull: false });
 	}
 };
 
 export const findUser = (req, res) => {
-    const filter = { id: req.query.id || 'inavlidId' };
+    const filter = { id: req.query.id || Messages.INVALID_ID };
     User.findOne(filter, (error, users) => {
         error ?
             res.status(HTTP.SERVER_ERROR)
@@ -97,7 +97,7 @@ export const updateUser = async(req, res) => {
     await User.findByIdAndUpdate(id, req.body, getUpdatedData, (error, updatedUser) => {
         !updatedUser ? 
             res.status(HTTP.NOT_FOUND)
-                .json(jsonResponse(false, updatedUser, "User not found!")) :
+                .json(jsonResponse(false, updatedUser, Messages.USER_NOT_FOUND)) :
             error ? 
                 res.status(HTTP.BAD_REQUEST)
                     .json(jsonResponse(false, error, error._message)) :
@@ -111,7 +111,7 @@ export const deleteUser = async(req, res) => {
     await User.findByIdAndDelete(id, (error, deletedUser) => {
         !deletedUser ? 
             res.status(HTTP.NOT_FOUND)
-                .json(jsonResponse(false, deletedUser, "User not found!")) :
+                .json(jsonResponse(false, deletedUser, Messages.USER_NOT_FOUND)) :
             error ? 
                 res.status(HTTP.BAD_REQUEST)
                     .json(jsonResponse(false, error, error._message)) :
