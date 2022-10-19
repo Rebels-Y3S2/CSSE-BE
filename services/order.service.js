@@ -2,7 +2,7 @@ import {Order} from "../models/index.js";
 import Messages from "../utils/config.js";
 import HTTP from "../utils/config.js";
 
-export const addOrder = (req, res) => {
+export const addOrdertoCart = (req, res) => {
     const order = new Order(req.body);
     // eslint-disable-next-line no-unused-vars
     order.save((err, document) => {
@@ -19,89 +19,122 @@ export const addOrder = (req, res) => {
     });
 };
 
+export const addOrder = (req, res) =>{
+    const order = {id: req.params.id};
+    const oStatus = {
+        orderStatus: req.body.orderStatus
+    };
+    Order.findOneAndUpdate(order, oStatus, { runValidators: true }, (err, response) => {
+        if (err)
+            res.status(HTTP.SERVER_ERROR).json({
+                message: {
+                    msgBody: Messages.UNABLE_TO_UPDATE_ORDER_STATUS,
+                    actualError: err._message,
+                    msgError: true
+                }
+            });
+        else
+            res.send({isSuccess: true , response});
+    });
+};
+
 export const getOrders = (req, res) => {
     Order.find()
-        .select("_id referenceNo description status isAccepted createdAt")
-        .populate("itemIds supplierDetails quantity agreedPrice")
+        .select("_id  referenceNo description status isAccepted createdAt orderStatus")
+        .populate("orderItems.itemId orderItems.supplierDetails orderItems.quantity orderItems.agreedPrice")
         .exec()
         .then(formattedReq => {
-            res.status(HTTP.OK).json({
+            res.status(200).json({
                 isSuccess: true,
                 count: formattedReq.length,
-                Item: formattedReq.map(d => {
+                Order_Items: formattedReq.map(d => {
+                    console.log("det",d);
                     return {
                         _id: d._id,
-                        items: d.itemIds.map(data => {
+                        order: d.orderItems.map(order => {
                             return {
-                                itemId : data._id,
-                                itemName: data.itemName,
-                                stock : data.stock,
-                                unitPrice: data.unitPrice,
+                                orderId: order._id,
+                                item: {
+                                    itemId: order.itemId._id,
+                                    itemName: order.itemId.itemName,
+                                    stock : order.itemId.stock,
+                                    unitPrice: order.itemId.unitPrice,
+                                },
+                                supplierDetails: {
+                                    name: order.supplierDetails.name || "",
+                                    email: order.supplierDetails.email || "",
+                                    contactNo: order.supplierDetails.contactNo || "",
+                                    address: order.supplierDetails.address || "",
+                                    shopName: order.supplierDetails.shopName || "",
+                                    description: order.supplierDetails.description || "",
+                                },
+                                quantity: order.quantity,
+                                agreedPrice: order.agreedPrice
                             };
+
                         }),
-                        supplierDetails: {
-                            name: d.supplierDetails.name || "",
-                            email: d.supplierDetails.email || "",
-                            contactNo: d.supplierDetails.contactNo || "",
-                            address: d.supplierDetails.address || "",
-                            shopName: d.supplierDetails.shopName || "",
-                            description: d.supplierDetails.description || "",
-                        },
-                        quantity: d.quantity,
-                        agreedPrice: d.agreedPrice,
                         referenceNo: d.referenceNo,
                         status: d.status,
                         isAccepted: d.isAccepted,
+                        orderStatus: d.orderStatus,
                         createdAt: d.createdAt
                     };
                 })
             });
         })
         .catch(err => {
-            res.status(HTTP.SERVER_ERROR).json({
+            res.status(500).json({
                 error: err
             });
+            console.log(err);
         });
 };
 
 export const getOrdersByOrderId = (req, res) => {
     const order = req.params.id;
     Order.find({_id: order})
-        .populate("itemIds supplierDetails quantity agreedPrice")
-        .exec()
-        .then(formattedReq => {
-            res.status(HTTP.OK).json({
-                isSuccess: true,
-                count: formattedReq.length,
-                Item: formattedReq.map(d => {
-                    return {
-                        _id: d._id,
-                        items: d.itemIds.map(data => {
-                            return {
-                                itemId : data._id,
-                                itemName: data.itemName,
-                                stock : data.stock,
-                                unitPrice: data.unitPrice,
-                            };
-                        }),
-                        supplierDetails: {
-                            name: d.supplierDetails.name || "",
-                            email: d.supplierDetails.email || "",
-                            contactNo: d.supplierDetails.contactNo || "",
-                            address: d.supplierDetails.address || "",
-                            shopName: d.supplierDetails.shopName || "",
-                            description: d.supplierDetails.description || "",
-                        },
-                        quantity: d.quantity,
-                        agreedPrice: d.agreedPrice,
-                        referenceNo: d.referenceNo,
-                        status: d.status,
-                        isAccepted: d.isAccepted,
-                        createdAt: d.createdAt
-                    };
-                })
-            });
-        })
+    .select("_id  referenceNo description status isAccepted createdAt orderStatus")
+    .populate("orderItems.itemId orderItems.supplierDetails orderItems.quantity orderItems.agreedPrice")
+    .exec()
+    .then(formattedReq => {
+        res.status(200).json({
+            isSuccess: true,
+            count: formattedReq.length,
+            Order_Items: formattedReq.map(d => {
+                console.log("det",d);
+                return {
+                    _id: d._id,
+                    order: d.orderItems.map(order => {
+                        return {
+                            orderId: order._id,
+                            item: {
+                                itemId: order.itemId._id,
+                                itemName: order.itemId.itemName,
+                                stock : order.itemId.stock,
+                                unitPrice: order.itemId.unitPrice,
+                            },
+                            supplierDetails: {
+                                name: order.supplierDetails.name || "",
+                                email: order.supplierDetails.email || "",
+                                contactNo: order.supplierDetails.contactNo || "",
+                                address: order.supplierDetails.address || "",
+                                shopName: order.supplierDetails.shopName || "",
+                                description: order.supplierDetails.description || "",
+                            },
+                            quantity: order.quantity,
+                            agreedPrice: order.agreedPrice
+                        };
+
+                    }),
+                    referenceNo: d.referenceNo,
+                    status: d.status,
+                    isAccepted: d.isAccepted,
+                    orderStatus: d.orderStatus,
+                    createdAt: d.createdAt
+                };
+            })
+        });
+    })
         .catch(err => {
             res.status(HTTP.SERVER_ERROR).json({
                 error: err

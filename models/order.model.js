@@ -4,21 +4,26 @@ import {v4} from "uuid";
 const { Schema } = mongoose;
 
 const orderSchema = new Schema({
-    itemIds: [{ type: Schema.Types.ObjectId, ref: "Item" }],
+    orderItems:[
+        {
+            itemId: {
+                type : mongoose.Schema.Types.ObjectId,
+                required: true,
+                ref:"Item"
+            },
+            supplierDetails: {type: Schema.Types.ObjectId, ref: "User"},
+            quantity: {type : Number, required: true},
+            agreedPrice: {type: String, required: true},
+        }
+    ],
     referenceNo: {
         type: String,
         default: v4(),
         required: true
     },
-    supplierDetails: {
-        type: Schema.Types.ObjectId, ref: "User",
-    },
-    quantity: [{ type: Number, required: true }],
     description: {
         type: String,
-        required: true
     },
-    agreedPrice: [{ type: String, required: true }],
     status: {
         type: Number,
         default: 0
@@ -27,7 +32,10 @@ const orderSchema = new Schema({
         type: Number,
         default: 0
     },
-    
+    orderStatus: {
+        type: Number,
+        default: 0
+    },
     },
     { timestamps: true }
 );
