@@ -1,11 +1,11 @@
-# Automobile spare parts application - backend
-This application connects the users who can sell or/and buy automobile spare parts.
+# Procurement for Construction Industry - backend
 
 ## ✨Run Locally
 
 Clone the project
 
 ```bash
+  https://github.com/Rebels-Y3S2/CSSE-BE.git
 ```
 
 Install dependencies
