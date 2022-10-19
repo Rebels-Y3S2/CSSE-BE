@@ -1,6 +1,6 @@
-import {register, login, updateUser, deleteUser, findUser, findUsers} from './user.service.js';
-import {addItem, getItems, updateItem, deleteItem, getItemsByItemId, updateItemStatus, updateItemAcceptance} from './item.service.js';
-import {addOrder, getOrders, getOrdersByOrderId, updateOrder, deleteOrder, updateStatus, updateAcceptance} from './order.service.js';
+import {register, login, updateUser, deleteUser, findUser, findUsers} from "./user.service.js";
+import {addItem, getItems, updateItem, deleteItem, getItemsByItemId, updateItemStatus, updateItemAcceptance} from "./item.service.js";
+import {addOrdertoCart, addOrder, getOrders, getOrdersByOrderId, updateOrder, deleteOrder, updateStatus, updateAcceptance} from "./order.service.js";
 
 export {
     // User
@@ -21,11 +21,12 @@ export {
     updateItemAcceptance,
 
     //order
-    addOrder,
+    addOrdertoCart,
     getOrders,
+    addOrder,
     getOrdersByOrderId,
     updateOrder,
     deleteOrder,
     updateStatus,
     updateAcceptance
-}
+};

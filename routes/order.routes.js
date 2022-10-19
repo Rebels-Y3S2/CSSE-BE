@@ -1,8 +1,9 @@
 import express from "express";
-import { addOrder, getOrders, getOrdersByOrderId, updateOrder, deleteOrder, updateStatus, updateAcceptance } from "../services/index.js";
+import { addOrdertoCart, addOrder, getOrders, getOrdersByOrderId, updateOrder, deleteOrder, updateStatus, updateAcceptance } from "../services/index.js";
 
 const OrderRouter = express.Router();
-OrderRouter.post("/", addOrder);
+OrderRouter.post("/addToCart", addOrdertoCart);
+OrderRouter.post("/add", addOrder);
 OrderRouter.get("/", getOrders);
 OrderRouter.get("/:id", getOrdersByOrderId);
 OrderRouter.put("/:id", updateOrder);

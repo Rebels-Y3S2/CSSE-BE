@@ -31,6 +31,7 @@ const Messages = {
     UNABLE_TO_DELETE_ORDER: "Unable to Delete Order",
     UNABLE_TO_UPDATE_STATUS: "Unable to Update Status",
     UNABLE_TO_UPDATE_ACCEPTANCE: "Unable to Update Acceptance",
+    UNABLE_TO_UPDATE_ORDER_STATUS: "Unable to Update Order Status",
 };
 
 const HTTP = {
@@ -50,6 +51,12 @@ const RoleValueMap = [
     {value: 2, key: "MANAGER"}
 ];
 
+const OrderStatus = [
+	{value: 0, key: "ADDED_TO_CART"},
+	{value: 1, key: "ADDED_AS_AN_ORDER"},
+    {value: 2, key: "REMOVED"}
+];
+
 const Status = [
 	{value: 0, key: "Visible"},
 	{value: 1, key: "Hidden"}
@@ -65,4 +72,4 @@ const AprovedStatus = [
 	{value: 1, key: "Approved"}
 ];
 
-export default {Config, Messages, HTTP, Status, RoleValueMap, Accepted, AprovedStatus};
+export default {Config, OrderStatus, Messages, HTTP, Status, RoleValueMap, Accepted, AprovedStatus};
