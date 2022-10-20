@@ -1,6 +1,6 @@
 import {Item} from "../models/index.js";
-import Messages from "../utils/config.js";
-import HTTP from "../utils/config.js";
+import Messages from "../utils/messages.js";
+import HTTP from "../utils/http.js";
 
 export const addItem = (req, res) => {
     const item = new Item(req.body);

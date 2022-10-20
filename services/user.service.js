@@ -3,8 +3,8 @@ import bcrypt from "bcrypt";
 import Joi from "joi";
 import { jsonResponse } from "../utils/serviceUtilities.js";
 import Config from "../utils/config.js";
-import Messages from "../utils/config.js";
-import HTTP from "../utils/config.js";
+import Messages from "../utils/messages.js";
+import HTTP from "../utils/http.js";
 
 const validateUserData = (data) => {
 	const schema = Joi.object({

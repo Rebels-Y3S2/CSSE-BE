@@ -1,6 +1,6 @@
 import {Order} from "../models/index.js";
-import Messages from "../utils/config.js";
-import HTTP from "../utils/config.js";
+import Messages from "../utils/messages.js";
+import HTTP from "../utils/http.js";
 
 export const addOrdertoCart = (req, res) => {
     const order = new Order(req.body);
