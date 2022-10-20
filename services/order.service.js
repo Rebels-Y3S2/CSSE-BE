@@ -48,7 +48,6 @@ export const getOrders = (req, res) => {
                 isSuccess: true,
                 count: formattedReq.length,
                 Order_Items: formattedReq.map(d => {
-                    console.log("det",d);
                     return {
                         _id: d._id,
                         order: d.orderItems.map(order => {
@@ -101,7 +100,6 @@ export const getOrdersByOrderId = (req, res) => {
             isSuccess: true,
             count: formattedReq.length,
             Order_Items: formattedReq.map(d => {
-                console.log("det",d);
                 return {
                     _id: d._id,
                     order: d.orderItems.map(order => {
