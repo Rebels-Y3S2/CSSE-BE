@@ -37,6 +37,7 @@ export const getItems = (req, res) => {
                         stock: d.stock,
                         unitPrice: d.unitPrice,
                         status: d.status,
+                        label: d.itemName + " " + "Rs." + d.unitPrice + "/-",
                         isAccepted: d.isAccepted,
                         createdAt: d.createdAt
                     };
@@ -66,6 +67,7 @@ export const getItemsByItemId = (req, res) => {
                         name: d.owner.name,
                         itemName: d.itemName,
                         stock: d.stock,
+                        label: d.itemName + " " + "Rs." + d.unitPrice + "/-",
                         unitPrice: d.unitPrice,
                         createdAt: d.createdAt
                     };
