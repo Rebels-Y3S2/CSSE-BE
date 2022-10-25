@@ -16,6 +16,10 @@ const orderSchema = new Schema({
             agreedPrice: {type: String, required: true},
         }
     ],
+    totalAmount: {
+        type: String,
+        required: true,
+    },
     referenceNo: {
         type: String,
         default: v4(),
