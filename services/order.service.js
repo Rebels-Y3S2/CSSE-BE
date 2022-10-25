@@ -40,7 +40,7 @@ export const addOrder = (req, res) =>{
 
 export const getOrders = (req, res) => {
     Order.find()
-        .select("_id  referenceNo description status isAccepted createdAt orderStatus")
+        .select("_id  referenceNo totalAmount description status isAccepted createdAt orderStatus")
         .populate("orderItems.itemId orderItems.supplierDetails orderItems.quantity orderItems.agreedPrice")
         .exec()
         .then(formattedReq => {
@@ -72,6 +72,7 @@ export const getOrders = (req, res) => {
                             };
 
                         }),
+                        totalAmount: d.totalAmount,
                         referenceNo: d.referenceNo,
                         status: d.status,
                         isAccepted: d.isAccepted,
@@ -92,7 +93,7 @@ export const getOrders = (req, res) => {
 export const getOrdersByOrderId = (req, res) => {
     const order = req.params.id;
     Order.find({_id: order})
-    .select("_id  referenceNo description status isAccepted createdAt orderStatus")
+    .select("_id  referenceNo totalAmount description status isAccepted createdAt orderStatus")
     .populate("orderItems.itemId orderItems.supplierDetails orderItems.quantity orderItems.agreedPrice")
     .exec()
     .then(formattedReq => {
@@ -125,6 +126,7 @@ export const getOrdersByOrderId = (req, res) => {
 
                     }),
                     referenceNo: d.referenceNo,
+                    totalAmount: d.totalAmount,
                     status: d.status,
                     isAccepted: d.isAccepted,
                     orderStatus: d.orderStatus,
