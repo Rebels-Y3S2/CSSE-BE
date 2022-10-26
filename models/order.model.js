@@ -29,7 +29,6 @@ const orderSchema = new Schema({
     },
     referenceNo: {
         type: String,
-        default: uuidv1(v1options),
         required: true
     },
     description: {
