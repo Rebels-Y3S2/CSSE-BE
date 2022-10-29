@@ -1,9 +1,42 @@
-import {register, login, updateUser, deleteUser, findUser, findUsers} from "./user.service.js";
-import {addItem, getItems, updateItem, deleteItem, getItemsByItemId, updateItemStatus, updateItemAcceptance} from "./item.service.js";
-import {addOrdertoCart, addOrder, getOrders, getOrdersByOrderId, updateOrder, deleteOrder, updateStatus, updateAcceptance} from "./order.service.js";
+/**
+ *  This will handle all the imports and exports related to the service classes.
+ */
+
+// Imports related to the user.service.js
+import {
+    register, 
+    login, 
+    updateUser, 
+    deleteUser, 
+    findUser, 
+    findUsers
+} from "./user.service.js";
+
+// Imports related to the item.service.js
+import {
+    addItem, 
+    getItems, 
+    updateItem, 
+    deleteItem, 
+    getItemsByItemId,
+    updateItemStatus, 
+    updateItemAcceptance
+} from "./item.service.js";
+
+//Imports related to the order.service.js
+import {
+    addOrdertoCart, 
+    addOrder, 
+    getOrders, 
+    getOrdersByOrderId,
+    updateOrder, 
+    deleteOrder, 
+    updateStatus, 
+    updateAcceptance
+} from "./order.service.js";
 
 export {
-    // User
+    // Exports related to the user.service.js
     login,
     register,
     updateUser,
@@ -11,7 +44,7 @@ export {
     findUser,
     findUsers,
 
-    //item
+    // Exports related to the item.service.js
     addItem,
     getItems,
     updateItem,
@@ -20,7 +53,7 @@ export {
     updateItemStatus,
     updateItemAcceptance,
 
-    //order
+    // Exports related to the order.service.js
     addOrdertoCart,
     getOrders,
     addOrder,

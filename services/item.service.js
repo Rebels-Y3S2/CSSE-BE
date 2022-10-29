@@ -2,6 +2,13 @@ import {Item} from "../models/index.js";
 import Messages from "../utils/messages.js";
 import HTTP from "../utils/http.js";
 
+/**
+ * This implements all the service based logic to all the repository related logic relating to the items
+ * @param {*} req 
+ * @param {*} res 
+ */
+
+// 
 export const addItem = (req, res) => {
     const item = new Item(req.body);
     // eslint-disable-next-line no-unused-vars

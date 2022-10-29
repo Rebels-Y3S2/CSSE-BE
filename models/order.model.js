@@ -34,15 +34,7 @@ const orderSchema = new Schema({
     description: {
         type: String,
     },
-    status: {
-        type: Number,
-        default: 0
-    },
     isAccepted: {
-        type: Number,
-        default: 0
-    },
-    orderStatus: {
         type: Number,
         default: 0
     },
