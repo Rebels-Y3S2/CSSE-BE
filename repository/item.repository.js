@@ -12,11 +12,34 @@ export const createItem = (data) =>
 
 // Get item repository logic
 export const fetchItems = () =>
-    Item.find();
+    Item.find()
+        .select("_id itemName stock unitPrice status createdAt")
+        .populate("owner",{
+            _id:1,
+            owner:1,
+            name:1,
+            itemName:1,
+            stock:1,
+            unitPrice:1,
+            status:1,
+            createdAt:1
+        });
+
 
 //Get item repository logic
 export const fetchItemById = (itemId) =>
-    Item.findById(itemId);
+    Item.findById(itemId)
+    .select("_id itemName stock unitPrice status createdAt")
+    .populate("owner",{
+        _id:1,
+        owner:1,
+        name:1,
+        itemName:1,
+        stock:1,
+        unitPrice:1,
+        status:1,
+        createdAt:1
+    });
 
 // Update item repository logic
 export const updateItem = (itemId, data) =>

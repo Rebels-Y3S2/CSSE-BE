@@ -28,7 +28,7 @@ export const addItem = (req, res) => {
 
 export const getItems = (req, res) => {
     Item.find()
-        .select("_id itemName stock unitPrice createdAt")
+        .select("_id itemName stock unitPrice status createdAt")
         .populate("owner")
         .exec()
         .then(formattedReq => {

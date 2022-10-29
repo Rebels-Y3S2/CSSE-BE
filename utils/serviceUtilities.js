@@ -3,5 +3,5 @@ export const jsonResponse = (isSuccessful, responseData, error) => {
         isSuccessful: isSuccessful,
         responseData,
         errorMessage: error
-    }
-}
+    };
+};
