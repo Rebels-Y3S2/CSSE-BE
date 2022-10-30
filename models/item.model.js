@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
+// The schema for the Items document in mongodb
 const itemSchema = new Schema({
     itemName: {
         type: String,
@@ -19,15 +20,10 @@ const itemSchema = new Schema({
         type: Schema.Types.ObjectId, ref: "User",
         required: true
     },
-    status: {
-        type: Number,
-        default: 0
-    },
-    isAccepted: {
-        type: Number,
-        default: 0
-    },
-    
+    visibility: {
+        type: Boolean,
+        default:true
+    }
     },
     { timestamps: true }
 );

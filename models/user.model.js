@@ -4,20 +4,48 @@ import Joi from "joi";
 import validatePw from "joi-password-complexity";
 import Config from "../utils/config.js";
 
+// The schema for the Users document in mongodb
 const userSchema = new mongoose.Schema({
-		name: { type: String },
-		email: { type: String, required: true },
-		contactNo: { type: String },
-		roleId: { type: Number, default: Config.DEFAULT_ROLE },
-		password: { type: String, required: true },
-		description: { type: String },
-		shopName: { type: String },
-		address: { type: String },
-		imageUrl: { type: String, default: Config.DEFAULT_IMAGE },
+		name: { 
+			type: String 
+		},
+		email: { 
+			type: String, 
+			required: true, 
+			unique: true 
+		},
+		contactNo: { 
+			type: String 
+		},
+		roleId: { 
+			type: String, 
+			default: Config.DEFAULT_ROLE 
+		},
+		password: { 
+			type: String, 
+			required: true 
+		},
+		description: { 
+			type: String 
+		},
+		shopName: { 
+			type: String 
+		},
+		address: { 
+			type: String 
+		},
+		imageUrl: { 
+			type: String, 
+			default: Config.DEFAULT_IMAGE 
+		},
 	},
 	{ timestamps: true }
 );
 
+/**
+ * Creates a JSON web token
+ * @returns - token
+ */
 userSchema.methods.generateAuthToken = function () {
 	// eslint-disable-next-line no-undef
 	const token = jwt.sign({ _id: this._id }, process.env.JWT_PRIVATEKEY, {
@@ -28,6 +56,11 @@ userSchema.methods.generateAuthToken = function () {
 
 const User = mongoose.model("User", userSchema);
 
+/**
+ * This method creates a Joi schema object and uses it to validate the data that are passed to it using its validate() method.
+ * @param {*} data 
+ * @returns 
+ */
 const validate = (data) => {
 	const schema = Joi.object({
 		name: Joi.string().label(Config.NAME),

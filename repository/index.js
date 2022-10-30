@@ -1,8 +1,4 @@
-/**
- * This will manage all the imports and exports related to the repository classes
- */
-
-// Imports related to item.repository.js
+// Imports of Item related repository methods from item.repository.js
 import { 
     createItem,
     fetchItems,
@@ -11,7 +7,7 @@ import {
     deleteItem
 } from "./item.repository.js";
 
-// Imports related to order.repository.js
+// Imports of Order related repository methods from order.repository.js
 import {
     createOrder,
     fetchOrders,
@@ -20,20 +16,38 @@ import {
     deleteOrder
 } from "./order.repository.js";
 
-//Exports
+// Imports of User related repository methods from user.repository.js
+import { 
+    createUser, 
+    fetchUsers, 
+    fetchUserByEmail, 
+    validateUserData, 
+    fetchUserById, 
+    updateUser, 
+    deleteUser 
+} from "./user.repository.js";
 
 export {
-//  Exports related to item.repository.js
+// Exports of Item related repository methods from item.repository.js
     createItem,
     fetchItems,
     fetchItemById,
     updateItem,
     deleteItem,
 
-// Exports related to order.repository.js
+// Exports of Order related repository methods from order.repository.js
     createOrder,
     fetchOrders,
     fetchOrderById,
     updateOrder,
-    deleteOrder
+    deleteOrder,
+
+// Exports of User related repository methods from user.repository.js
+    createUser,
+    fetchUsers,
+    fetchUserByEmail,
+    validateUserData,
+    fetchUserById,
+    updateUser,
+    deleteUser
 };

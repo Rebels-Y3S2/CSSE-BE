@@ -1,122 +1,88 @@
-import {User, validate} from "../models/index.js";
-import bcrypt from "bcrypt";
-import Joi from "joi";
-import { jsonResponse } from "../utils/serviceUtilities.js";
-import Config from "../utils/config.js";
-import Messages from "../utils/messages.js";
-import HTTP from "../utils/http.js";
+import { validate } from "../models/user.model.js";
+import { 
+    createUser, 
+    deleteUser, 
+    fetchUserByEmail, 
+    fetchUserById, 
+    fetchUsers, 
+    updateUser, 
+    validateUserData 
+} from "../repository/index.js";
+import bcrypt from "bcrypt"
 
-const validateUserData = (data) => {
-	const schema = Joi.object({
-		email: Joi.string().email().required().label(Config.EMAIL),
-		password: Joi.string().required().label(Config.PASSWORD),
-	});
-	return schema.validate(data);
-};
+/**
+ * Validates the data by utilizing validateUserData() method
+ * Handles the repository logic sent from the fetchUserByEmail() method
+ * @param {*} data 
+ * @returns - userObject
+ */
+export const loginService = (data) =>{
+    const { email, password } = data;
+    const result = validateUserData({email, password})
+    if (result.error){
+        throw (result.error.details[0].message)
+    }else{
+        return fetchUserByEmail({email})
+    }
+}
 
-export const login = async (req, res) => {
-	try {
-		const { error } = validateUserData(req.body);
-		if (error)
-			return res.status(HTTP.BAD_REQUEST).send({ message: error.details[0].message });
-
-		const user = await User.findOne({ email: req.body.email });
-		if (!user)
-			return res.status(HTTP.AUTHENTICATION_FAIL).send({ message: Messages.INVALID_EMAIL_OR_PASSWORD });
-
-		//check if entered password is valid
-		const isValidPassword = await bcrypt.compare(
-			req.body.password,
-			user.password
-		);
-		if (!isValidPassword)
-			return res.status(HTTP.AUTHENTICATION_FAIL).send({ message: Messages.INVALID_EMAIL_OR_PASSWORD });
-
-		const token = user.generateAuthToken();
-		res.status(HTTP.OK).send({ data: token, message: Messages.LOGGED_IN_SUCCESSFULLY, userData: user });
-	} catch (error) {
-		res.status(HTTP.SERVER_ERROR).send({ message: Messages.INTERNAL_SERVER_ERROR });
-	}
-};
-
-export const register = async (req, res) => {
-	try {
-		const { error } = validate(req.body);
-		if (error)
-			return res.status(HTTP.BAD_REQUEST).send({ message: error.details[0].message });
-
-		const user = await User.findOne({ email: req.body.email });
-		if (user)
-			return res
-				.status(HTTP.CONFLICT)
-				.send({ message: Messages.USER_WITH_GIVEN_EMAIL_ALREADY_EXIST });
-
-        //To get salt string we will be using genSalt and storing it in the salt variable
-		// eslint-disable-next-line no-undef
-		const salt = await bcrypt.genSalt(Number(process.env.SALT));
-
+/**
+ * Validates the data by utilizing the validate() method
+ * Encrypts the password sent in the data
+ * Handles the repository logic sent from the createUser() method
+ * @param {*} data 
+ * @returns - createdUserObject
+ */
+export const registerService = (data) =>{
+    const { name, email, contactNo, roleId, password, description, shopName, address, imageUrl } = data;
+    const validation = validate(data);
+    if(validation.error){
+        throw (validation.error.details[0].message);
+    }else{
+		const salt = bcrypt.genSaltSync(Number(process.env.SALT));
         //bcrypt password to hashing algorithm
-		const hashPassword = await bcrypt.hash(req.body.password, salt);
+		const hashPassword = bcrypt.hashSync(password, salt);
+        return createUser({name, email, contactNo, roleId, password:hashPassword, description, shopName, address, imageUrl});
+    }
+}
 
-		await new User({ ...req.body, password: hashPassword }).save();
-		res.status(HTTP.CREATED).send({ message: Messages.USER_CREATED_SUCCESSFULLY, isSuccessfull: true });
-	} catch (error) {
-		res.status(HTTP.SERVER_ERROR).send({ message: Messages.INTERNAL_SERVER_ERROR, isSuccessfull: false });
-	}
-};
+/**
+ * Handles the repository logic sent from fetchUsers() method
+ * @returns - usersArray
+ */
+export const fetchUsersService = () =>{
+    return fetchUsers();
+}
 
-export const findUser = (req, res) => {
-    const filter = { id: req.query.id || Messages.INVALID_ID };
-    User.findOne(filter, (error, users) => {
-        error ?
-            res.status(HTTP.SERVER_ERROR)
-                .json(jsonResponse(false, error, error._message)) :
-            res.status(HTTP.CREATED)
-                .json(jsonResponse(true, users));
-        });
-};
+/**
+ * Handles the repository logic sent from the fetchUserById() method
+ * @param {*} userId 
+ * @returns - userObject
+ */
+export const fetchUserService = (userId) =>{
+    return fetchUserById(userId)
+}
 
-export const findUsers = async(req, res) => {
-    const filter = {};
-    const { id, role, _id } = req.query;
-        id && (filter.id = id);
-        role && (filter.role = role);
-	_id && (filter._id = _id);
-    await User.find(filter, (error, users) => {
-        error ?
-            res.status(HTTP.SERVER_ERROR)
-                .json(jsonResponse(false, error, error._message)) :
-            res.status(HTTP.CREATED)
-                .json(jsonResponse(true, users));
-        });
-};
+/**
+ * Handles the repository logic sent from the updateUser() method
+ * @param {*} userId 
+ * @param {*} data 
+ * @returns - updatedUserObject
+ */
+export const updateUserService = (userId, data) =>{
+    const { name, email, contactNo, roleId, password, description, shopName, address, imageUrl } = data;
+    const salt = bcrypt.genSaltSync(Number(process.env.SALT));
+    //bcrypt password to hashing algorithm
+    const hashPassword = bcrypt.hashSync(password, salt);
+    return updateUser(userId, {name, email, contactNo, roleId, password:hashPassword, description, shopName, address, imageUrl});
 
-export const updateUser = async(req, res) => {
-    const id = req.params.id;
-    const getUpdatedData = { new: true };
+}
 
-    await User.findByIdAndUpdate(id, req.body, getUpdatedData, (error, updatedUser) => {
-        !updatedUser ? 
-            res.status(HTTP.NOT_FOUND)
-                .json(jsonResponse(false, updatedUser, Messages.USER_NOT_FOUND)) :
-            error ? 
-                res.status(HTTP.BAD_REQUEST)
-                    .json(jsonResponse(false, error, error._message)) :
-                res.status(HTTP.OK)
-                    .json(jsonResponse(true, updatedUser));
-    });       
-};
-
-export const deleteUser = async(req, res) => {
-    const id = req.params.id;
-    await User.findByIdAndDelete(id, (error, deletedUser) => {
-        !deletedUser ? 
-            res.status(HTTP.NOT_FOUND)
-                .json(jsonResponse(false, deletedUser, Messages.USER_NOT_FOUND)) :
-            error ? 
-                res.status(HTTP.BAD_REQUEST)
-                    .json(jsonResponse(false, error, error._message)) :
-                res.status(HTTP.OK)
-                    .json(jsonResponse(true, deletedUser));
-    });       
-};
+/**
+ * Handles the repository logic set from the deleteUser() method
+ * @param {*} userId 
+ * @returns 
+ */
+export const deleteUserService  = (userId) =>{
+    return deleteUser(userId);
+}
