@@ -8,8 +8,8 @@ import HTTP from "../utils/http.js";
 
 const validateUserData = (data) => {
 	const schema = Joi.object({
-		email: Joi.string().email().required().label(Config.EMAIL),
-		password: Joi.string().required().label(Config.PASSWORD),
+		email: Joi.string().email().required(),
+		password: Joi.string().required(),
 	});
 	return schema.validate(data);
 };
@@ -35,6 +35,7 @@ export const login = async (req, res) => {
 		const token = user.generateAuthToken();
 		res.status(HTTP.OK).send({ data: token, message: Messages.LOGGED_IN_SUCCESSFULLY, userData: user });
 	} catch (error) {
+        console.log(error);
 		res.status(HTTP.SERVER_ERROR).send({ message: Messages.INTERNAL_SERVER_ERROR });
 	}
 };
