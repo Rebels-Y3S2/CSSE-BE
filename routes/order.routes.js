@@ -1,14 +1,20 @@
 import express from "express";
-import { addOrdertoCart, addOrder, getOrders, getOrdersByOrderId, updateOrder, deleteOrder, updateStatus, updateAcceptance } from "../services/index.js";
+import { 
+    createOrder, 
+    deleteOrder, 
+    getOrder, 
+    getOrders, 
+    updateOrder 
+} from "../controller/index.js";
 
+// Creating a router instance
 const OrderRouter = express.Router();
-OrderRouter.post("/addToCart", addOrdertoCart);
-OrderRouter.post("/add", addOrder);
+
+// Using the created router instance to route the requests through REST API Paths
+OrderRouter.post("/", createOrder);
 OrderRouter.get("/", getOrders);
-OrderRouter.get("/:id", getOrdersByOrderId);
+OrderRouter.get("/:id", getOrder);
 OrderRouter.put("/:id", updateOrder);
 OrderRouter.delete("/:id", deleteOrder);
-OrderRouter.put("/status/:id", updateStatus);
-OrderRouter.put("/acceptance/:id", updateAcceptance);
 
 export default OrderRouter;
