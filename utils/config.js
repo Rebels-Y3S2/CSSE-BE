@@ -1,5 +1,4 @@
-const Config = {
-    //user
+export const Config = {
     DEFAULT_ROLE: "PROCUMENT",
     DEFAULT_IMAGE: "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
     JWT__EXPIRED_IN: "365d",
@@ -12,6 +11,6 @@ const Config = {
     SHOP_NAME: "Shop Name",
     ADDRESS: "Address",
     IMAGE: "Image",
-    //Item
 };
-export default {Config};
+
+export default Config;

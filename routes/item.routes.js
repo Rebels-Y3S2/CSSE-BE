@@ -1,13 +1,20 @@
 import express from "express";
-import { addItem, getItems, updateItem, deleteItem, getItemsByItemId, updateItemStatus, updateItemAcceptance } from "../services/index.js";
+import { 
+    getItems, 
+    getItem, 
+    updateItem, 
+    createItem, 
+    deleteItem,  
+} from "../controller/index.js";
 
+// Creates a router instance
 const ItemRouter = express.Router();
-ItemRouter.post("/", addItem);
+
+// Using the created router instance to route the requests through REST API Paths
+ItemRouter.post("/", createItem);
 ItemRouter.get("/", getItems);
-ItemRouter.get("/:id", getItemsByItemId);
+ItemRouter.get("/:id", getItem);
 ItemRouter.put("/:id", updateItem);
 ItemRouter.delete("/:id", deleteItem);
-ItemRouter.put("/status/:id", updateItemStatus);
-ItemRouter.put("/acceptance/:id", updateItemAcceptance);
 
 export default ItemRouter;

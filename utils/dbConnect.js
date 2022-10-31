@@ -8,6 +8,9 @@ const info = chalk.blue.bgCyan.bold;
 const errorMsg = chalk.blue.bgRed.bold;
 const success = chalk.blue.bgGreen.bold;
 
+/**
+ * Creates the database connection to mongodb
+ */
 export const connect = () => {
   try {
     // eslint-disable-next-line no-undef
@@ -24,6 +27,10 @@ export const connect = () => {
 	}
 };
 
+/**
+ * Terminates the connection to mongodb
+ * @param {*} done 
+ */
 export const disconnect = (done) => {
   mongoose.disconnect(done);
 };

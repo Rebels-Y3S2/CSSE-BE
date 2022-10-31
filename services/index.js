@@ -1,32 +1,51 @@
-import {register, login, updateUser, deleteUser, findUser, findUsers} from "./user.service.js";
-import {addItem, getItems, updateItem, deleteItem, getItemsByItemId, updateItemStatus, updateItemAcceptance} from "./item.service.js";
-import {addOrdertoCart, addOrder, getOrders, getOrdersByOrderId, updateOrder, deleteOrder, updateStatus, updateAcceptance} from "./order.service.js";
+// Imports related to the service methods of item.service.js
+import { 
+    createItemService, 
+    fetchItemService, 
+    fetchItemsService, 
+    updateItemService, 
+    deleteItemService,
+} from "./item.service.js";
+
+// Imports related to the service methods of order.service.js
+import { 
+    createOrderService,
+    fetchOrdersService,
+    fetchOrderService,
+    udpateOrderService,
+    deleteOrderService
+} from "./order.service.js";
+
+// Imports related to the service methods of user.service.js
+import { 
+    loginService, 
+    registerService, 
+    fetchUserService, 
+    fetchUsersService, 
+    updateUserService, 
+    deleteUserService 
+} from "./user.service.js";
 
 export {
-    // User
-    login,
-    register,
-    updateUser,
-    deleteUser,
-    findUser,
-    findUsers,
+// Exports related to the service methods of item.service.js
+    createItemService,
+    fetchItemsService,
+    fetchItemService,
+    updateItemService,
+    deleteItemService,
 
-    //item
-    addItem,
-    getItems,
-    updateItem,
-    deleteItem,
-    getItemsByItemId,
-    updateItemStatus,
-    updateItemAcceptance,
+// Exports related to the service methods of order.service.js
+    createOrderService,
+    fetchOrdersService,
+    fetchOrderService,
+    udpateOrderService,
+    deleteOrderService,
 
-    //order
-    addOrdertoCart,
-    getOrders,
-    addOrder,
-    getOrdersByOrderId,
-    updateOrder,
-    deleteOrder,
-    updateStatus,
-    updateAcceptance
+// Exports related to the service methods of user.service.js
+    loginService,
+    registerService,
+    fetchUserService,
+    fetchUsersService,
+    updateUserService,
+    deleteUserService
 };
