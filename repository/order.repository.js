@@ -27,7 +27,7 @@ export const fetchOrders = () =>
  */
 export const fetchOrderById = (orderId) =>
     Order.findById(orderId)
-        .select("_id orderItems referenceNo totalAmount description orderStatus paymentStatus createdAt")
+        .select("_id orderItems referenceNo totalAmount description orderStatus paymentStatus createdAt comment")
         .populate("orderItems.item", {
             _id: 1,
             itemName: 1
