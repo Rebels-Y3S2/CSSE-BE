@@ -1,4 +1,5 @@
 import { Order } from "../models/index.js";
+import QueryConstants from "../utils/queryConstants.js";
 
 /**
  * Handles the repository logic related to creating an order in database
@@ -14,8 +15,8 @@ export const createOrder = (data) =>
  */
 export const fetchOrders = () =>
     Order.find()
-        .select("_id orderItems referenceNo totalAmount description orderStatus paymentStatus createdAt")
-        .populate("orderItems.item", {
+        .select(QueryConstants.ORDER_FIELDS)
+        .populate(QueryConstants.ORDER_ITEM_PATH, {
             _id: 1,
             itemName: 1
         })
@@ -27,8 +28,8 @@ export const fetchOrders = () =>
  */
 export const fetchOrderById = (orderId) =>
     Order.findById(orderId)
-        .select("_id orderItems referenceNo totalAmount description orderStatus paymentStatus createdAt comment")
-        .populate("orderItems.item", {
+        .select(QueryConstants.ORDER_FIELDS)
+        .populate(QueryConstants.ORDER_ITEM_PATH, {
             _id: 1,
             itemName: 1
         })
