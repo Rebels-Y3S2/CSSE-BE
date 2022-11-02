@@ -27,7 +27,7 @@ export const TestConstants = {
 
     // User Test constants
     FETCH_USER_ID:"635eca894f31111a927db2ca",
-    UPDATE_USER_ID:"635ecb1b4f31111a927db2cc",
+    UPDATE_USER_ID:"635eca894f31111a927db2ca",
     CREATE_USER_TEST:"Test createUserService by entering an user object to payload",
     FETCH_USERS_TEST:"Test fetchUsersService with valid users",
     FETCH_MULTIPLE_USERS:"Test fetchUsersService fetching multiple users",

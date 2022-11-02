@@ -93,7 +93,7 @@ export const orderData = {
   },
   invalidOrder: {},
   emptyOrderList:[]
-}
+};
 
 export const userData = {
   validUser:{
@@ -102,7 +102,7 @@ export const userData = {
     email:"saman@gmail.com",
     contactNo: "0777985645",
     roleId:"SUPPLIER",
-    password:"$2b$05$apS5bqjy9.yk.SVJrwkWz.kk8AyiyjrjHdKZ6LRkT.p6p0kg.nZTC",
+    password:"Testpassword123*",
     description:"A genuine supplier with 10+ years of experience",
     shopName:"Workman",
     address:"50/1B, Baseline Road, Dematagoda",
@@ -143,14 +143,20 @@ export const userData = {
   updatedUser:{
       _id:"635eca894f31111a927db2ca",
       name:"Saman Wijethilake",
-      email:"saman@gmail123.com",
+      email:"saman@gmail.com",
       contactNo: "0777985645",
       roleId:"SUPPLIER",
-      password:"$2b$05$apS5bqjy9.yk.SVJrwkWz.kk8AyiyjrjHdKZ6LRkT.p6p0kg.nZTC",
+      password:"Testpassword123*",
       description:"A genuine supplier with 10+ years of experience",
       shopName:"Workman",
       address:"50/1B, Baseline Road, Dematagoda",
       imageUrl:"image",
       createdAt:"2022-10-30T19:03:37.566+00:00",
       updatedAt:"2022-10-30T19:03:37.566+00:00"
-}
+  },
+  updateRequest:{
+    email:"saman@gmail123.com",
+  },
+  invalidItem: {},
+  emptyItemList: [],
+};
