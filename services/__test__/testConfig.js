@@ -155,8 +155,8 @@ export const userData = {
       updatedAt:"2022-10-30T19:03:37.566+00:00"
   },
   updateRequest:{
-    email:"saman@gmail123.com",
+    email:"saman123@gmail.com",
   },
-  invalidItem: {},
-  emptyItemList: [],
+  invalidUser: {},
+  emptyUserList: [],
 };
