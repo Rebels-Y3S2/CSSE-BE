@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "jest": {
+    "verbose": true
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "start": "nodemon index.js"
   },
   "type": "module",
@@ -20,6 +23,7 @@
     "joi": "^17.6.0",
     "joi-password-complexity": "^5.1.0",
     "jsonwebtoken": "^8.5.1",
+    "mockingoose": "^2.15.2",
     "mongoose": "^6.5.2",
     "nodemon": "^2.0.19",
     "unique-username-generator": "^1.1.1",
@@ -28,6 +32,7 @@
   },
   "devDependencies": {
     "eslint": "^8.25.0",
-    "eslint-plugin-react": "^7.31.10"
+    "eslint-plugin-react": "^7.31.10",
+    "jest": "^29.2.2"
   }
 }
