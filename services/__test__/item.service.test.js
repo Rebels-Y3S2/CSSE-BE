@@ -1,5 +1,6 @@
 import mockingoose from "mockingoose/lib";
 import { Item } from "../../models";
+import { TestConstants } from "../../utils/constants/testConstants";
 import {
   fetchItemService,
   fetchItemsService,
@@ -9,11 +10,11 @@ import { itemData } from "./testConfig";
 /**
  * Should return an array of items within a promise
  */
-test("test fetchItemsService with valid items", async () => {
+test(TestConstants.FETCH_ITEMS_TEST, async () => {
   const items = itemData.validItemsList;
 
   // mocking mongoose
-  mockingoose(Item).toReturn(items, "find");
+  mockingoose(Item).toReturn(items, TestConstants.FIND);
   const response = await fetchItemsService();
 
   expect(response[0]._id).toStrictEqual(response[0]._id);
@@ -27,11 +28,11 @@ test("test fetchItemsService with valid items", async () => {
 /**
  * Should return an empty array when there are no results
  */
-test("test fetchItemsService function with empty response", async () => {
+test(TestConstants.FETCH_ITEMS_EMPTY_RESPONSE_TEST, async () => {
   const items = itemData.emptyItemList;
 
   // Mocking mongoose
-  mockingoose(Item).toReturn(items, "find");
+  mockingoose(Item).toReturn(items, TestConstants.FIND);
 
   const response = await fetchItemsService();
 
@@ -41,11 +42,11 @@ test("test fetchItemsService function with empty response", async () => {
 /**
  * Should return and array of items in the normal usecase
  */
-test("test fetchItemsService with mutiple items", async () => {
+test(TestConstants.FETCH_MULTIPLE_ITEMS, async () => {
   const items = itemData.validItemsList;
 
   // Mocking mongoose
-  mockingoose(Item).toReturn(items, "find");
+  mockingoose(Item).toReturn(items, TestConstants.FIND);
 
   const response = await fetchItemsService();
 
@@ -56,13 +57,13 @@ test("test fetchItemsService with mutiple items", async () => {
 /**
  * Should return an item object when a valid item id is passed.
  */
-test("test fetchItemService with a valid item id", async () => {
+test(TestConstants.FETCH_ITEM_WITH_VALID_ID_TEST, async () => {
   const item = itemData.validItem;
 
   // Mocking mongoose
-  mockingoose(Item).toReturn(item, "findOne");
+  mockingoose(Item).toReturn(item, TestConstants.FIND_ONE);
 
-  const response = await fetchItemService("507f191e810c19729de860ea");
+  const response = await fetchItemService(TestConstants.FETCH_ITEM_ID);
 
   expect(response._id).toStrictEqual(response._id);
   expect(response.owner).toStrictEqual(response.owner);
@@ -75,12 +76,12 @@ test("test fetchItemService with a valid item id", async () => {
 /**
  * Should return an empty object when an ivalid item id is passed.
  */
-test("test fetchItemService with an invalid item id", async () => {
+test(TestConstants.FETCH_ITEM_WITH_INVALID_ID_TEST, async () => {
   const item = itemData.invalidItem;
   
   // Mocking mongoose
-  mockingoose(Item).toReturn(item, "findOne");
+  mockingoose(Item).toReturn(item, TestConstants.FIND_ONE);
   
-  const response = await fetchItemService("507f191e810c19729de860ea");
+  const response = await fetchItemService(TestConstants.FETCH_ITEM_ID);
   expect(response.itemName).not.toBeTruthy();
 });

@@ -6,12 +6,12 @@ import {
     updateUserService,
     deleteUserService
 } from "../services/index.js";
-import Messages from "../utils/messages.js";
+import Messages from "../utils/constants/messages.js";
 import { jsonResponse } from "../utils/serviceUtilities.js";
 import bcrypt from "bcrypt";
-import HTTP from "../utils/http.js";
+import HTTP from "../utils/constants/http.js";
 import { logger } from "../utils/logger.js";
-import { LoggerConstants } from "../utils/loggerConstants.js";
+import { LoggerConstants } from "../utils/constants/loggerConstants.js";
 
 /**
  * Handles the service logic sent from the loginService() method
