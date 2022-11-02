@@ -81,5 +81,5 @@ test(TestConstants.FETCH_USER_WITH_INVALID_ID_TEST, async() =>{
     mockingoose(User).toReturn(user, TestConstants.FIND_ONE);
     const response = await fetchUserService(TestConstants.FETCH_USER_ID);
     
-    expect(response?._id).not.toBeTruthy();
+    expect(response?.name).not.toBeTruthy();
 });
