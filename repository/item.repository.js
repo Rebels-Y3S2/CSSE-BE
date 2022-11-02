@@ -1,4 +1,5 @@
 import { Item } from "../models/index.js"; 
+import QueryConstants from "../utils/queryConstants.js";
 
 /**
  * Handles the repository logic related to creating an item in database
@@ -14,8 +15,8 @@ export const createItem = (data) =>
  */
 export const fetchItems = () =>
     Item.find()
-        .select("_id itemName stock unitPrice owner visibility createdAt")
-        .populate("owner",{
+        .select(QueryConstants.SELECT_ITEMS_FIELDS)
+        .populate(QueryConstants.ITEM_OWNER_PATH,{
             _id:1,
             name:1,
         });
@@ -27,8 +28,8 @@ export const fetchItems = () =>
  */
 export const fetchItemById = (itemId) =>
     Item.findById(itemId)
-    .select("_id itemName stock unitPrice status visibility createdAt")
-    .populate("owner",{
+    .select(QueryConstants.SELECT_ITEMS_FIELDS)
+    .populate(QueryConstants.ITEM_OWNER_PATH,{
         _id:1,
         name:1,
     });
