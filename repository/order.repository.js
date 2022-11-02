@@ -1,5 +1,5 @@
 import { Order } from "../models/index.js";
-import QueryConstants from "../utils/queryConstants.js";
+import QueryConstants from "../utils/constants/queryConstants.js";
 
 /**
  * Handles the repository logic related to creating an order in database

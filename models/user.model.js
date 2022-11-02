@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import Joi from "joi";
 import validatePw from "joi-password-complexity";
-import Config from "../utils/config.js";
+import Config from "../utils/constants/config.js";
 
 // The schema for the Users document in mongodb
 const userSchema = new mongoose.Schema({

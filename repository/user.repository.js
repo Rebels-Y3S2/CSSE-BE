@@ -1,6 +1,6 @@
 import Joi from "joi";
 import { User } from "../models/index.js";
-import { Config } from "../utils/config.js";
+import { Config } from "../utils/constants/config.js";
 
 /**
  * Handles the repository logic related to creating a user in database
