@@ -24,5 +24,16 @@ export const TestConstants = {
     FETCH_ITEMS_EMPTY_RESPONSE_TEST:"Test fetchItemsService function with empty response",
     FETCH_ITEM_WITH_VALID_ID_TEST:"Test fetchItemService with a valid item id",
     FETCH_ITEM_WITH_INVALID_ID_TEST:"Test fetchItemService with an invalid item id",
+
+    // User Test constants
+    FETCH_USER_ID:"635eca894f31111a927db2ca",
+    UPDATE_USER_ID:"635ecb1b4f31111a927db2cc",
+    CREATE_USER_TEST:"Test createUserService by entering an user object to payload",
+    FETCH_USERS_TEST:"Test fetchUsersService with valid users",
+    FETCH_MULTIPLE_USERS:"Test fetchUsersService fetching multiple users",
+    FETCH_USERS_EMPTY_RESPONSE_TEST:"Test fetchUsersService function with empty response",
+    FETCH_USER_WITH_VALID_ID_TEST:"Test fetchUserService with a valid userId",
+    FETCH_USER_WITH_INVALID_ID_TEST:"Test fetchUserService with an invalid user id",
+    UPDATE_USER_TEST:"Test updateUserService updating user details",
     
-}
+};
