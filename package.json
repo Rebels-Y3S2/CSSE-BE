@@ -23,7 +23,8 @@
     "mongoose": "^6.5.2",
     "nodemon": "^2.0.19",
     "unique-username-generator": "^1.1.1",
-    "uuidv4": "^6.2.13"
+    "uuidv4": "^6.2.13",
+    "winston": "^3.8.2"
   },
   "devDependencies": {
     "eslint": "^8.25.0",
