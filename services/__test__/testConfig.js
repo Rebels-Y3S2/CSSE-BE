@@ -93,4 +93,70 @@ export const orderData = {
   },
   invalidOrder: {},
   emptyOrderList:[]
-}
+};
+
+export const userData = {
+  validUser:{
+    _id:"635eca894f31111a927db2ca",
+    name:"Saman Wijethilake",
+    email:"saman@gmail.com",
+    contactNo: "0777985645",
+    roleId:"SUPPLIER",
+    password:"Testpassword123*",
+    description:"A genuine supplier with 10+ years of experience",
+    shopName:"Workman",
+    address:"50/1B, Baseline Road, Dematagoda",
+    imageUrl:"image",
+    createdAt:"2022-10-30T19:03:37.566+00:00",
+    updatedAt:"2022-10-30T19:03:37.566+00:00"
+  },
+  validUserList:[
+    {
+      _id:"635eca894f31111a927db2ca",
+      name:"Saman Wijethilake",
+      email:"saman@gmail.com",
+      contactNo: "0777985645",
+      roleId:"SUPPLIER",
+      password:"$2b$05$apS5bqjy9.yk.SVJrwkWz.kk8AyiyjrjHdKZ6LRkT.p6p0kg.nZTC",
+      description:"A genuine supplier with 10+ years of experience",
+      shopName:"Workman",
+      address:"50/1B, Baseline Road, Dematagoda",
+      imageUrl:"image",
+      createdAt:"2022-10-30T19:03:37.566+00:00",
+      updatedAt:"2022-10-30T19:03:37.566+00:00"
+    },
+    {
+      _id:"635ecb1b4f31111a927db2cc",
+      name:"Janith Perera",
+      email:"janith@gmail.com",
+      contactNo: "0774563223",
+      roleId:"PROCUMENT",
+      password:"$2b$05$apS5bqjy9.yk.SVJrwkWz.kk8AyiyjrjHdKZ6LRkT.p6p0kg.nZTC",
+      description:"An experienced Procument staff member",
+      shopName:"Windage Hardware",
+      address:"42/2C, Malwana Road, Malwana",
+      imageUrl:"image",
+      createdAt:"2022-10-30T19:03:37.566+00:00",
+      updatedAt:"2022-10-30T19:03:37.566+00:00"
+    }
+  ],
+  updatedUser:{
+      _id:"635eca894f31111a927db2ca",
+      name:"Saman Wijethilake",
+      email:"saman@gmail.com",
+      contactNo: "0777985645",
+      roleId:"SUPPLIER",
+      password:"Testpassword123*",
+      description:"A genuine supplier with 10+ years of experience",
+      shopName:"Workman",
+      address:"50/1B, Baseline Road, Dematagoda",
+      imageUrl:"image",
+      createdAt:"2022-10-30T19:03:37.566+00:00",
+      updatedAt:"2022-10-30T19:03:37.566+00:00"
+  },
+  updateRequest:{
+    email:"saman123@gmail.com",
+  },
+  invalidUser: {},
+  emptyUserList: [],
+};
