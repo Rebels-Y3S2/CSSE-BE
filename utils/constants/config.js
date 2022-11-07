@@ -11,6 +11,10 @@ export const Config = {
     SHOP_NAME: "Shop Name",
     ADDRESS: "Address",
     IMAGE: "Image",
+    CONNECTED:"connected",
+    OPEN:"open",
+    ERROR:"error",
+    DISCONNECTED:"disconnected"
 };
 
 export default Config;
