@@ -5,6 +5,7 @@ import { connect } from "./dbConnect.js";
 import "dotenv/config";
 import { logger } from "./logger.js";
 import chalk from "chalk";
+import { LoggerConstants } from "./constants/loggerConstants.js";
 
 const portCon = chalk.blue.bgWhite.bold; // Color for logger console out
 
@@ -74,6 +75,6 @@ export default class InitializeBackend {
     listenHandler(){
         const port = process.env.PORT || 3001;
         this.App.listen(port)
-        logger.info(portCon(`🚀 Server listening on PORT ${process.env.PORT} 🚀`));
+        logger.info(portCon(LoggerConstants.SERVER_LISTENING_ON_PORT + process.env.PORT + '🚀'));
     }
 }

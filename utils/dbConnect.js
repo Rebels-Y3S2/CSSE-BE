@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import chalk from "chalk";
 import { logger } from "./logger.js";
+import { LoggerConstants } from "./constants/loggerConstants.js";
+import Config from "./constants/config.js";
 
 const db = mongoose.connection;
 
@@ -19,11 +21,11 @@ export const connect = () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-		db.on("connected", () => logger.info(info("Connected to the database!😎😊😇")));
-    db.on("open", () =>logger.info(success("DB connection successful!😁😗🤪")));
+		db.on(Config.CONNECTED, () => logger.info(info(LoggerConstants.DB_CONNECTED)));
+    db.on(Config.OPEN, () =>logger.info(success(LoggerConstants.DB_CONNECTION_SUCCESS)));
 	} catch (error) {
-		db.on("error", () => logger.error(errorMsg("DB connection failed!😡😖🤬")));
-    db.on("diconnected", () => logger.error(warning("Database disconnected!😥😔🤫")));
+		db.on(Config.ERROR, () => logger.error(errorMsg(LoggerConstants.DB_CONNECTION_FAILED)));
+    db.on(Config.DISCONNECTED, () => logger.error(warning(LoggerConstants.DB_DISCONNECTED)));
 	}
 };
 
@@ -33,5 +35,5 @@ export const connect = () => {
  */
 export const disconnect = (done) => {
   mongoose.disconnect(done);
-  logger.info(info("Disconnected from the database!😎😊😇"))
+  logger.info(info(LoggerConstants.DB_DISCONNECTED))
 };
