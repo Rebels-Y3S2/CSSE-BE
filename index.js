@@ -1,24 +1,12 @@
-import "dotenv/config";
-import express from "express";
-import cors from "cors";
-import {connect} from './utils/dbConnect.js';
-import chalk from "chalk";
-import ApiRouter from "./routes/index.js";
-import { logger } from "./utils/logger.js";
+import InitializeBackend from "./utils/InitializeBackend.js";
 
-const portCon = chalk.blue.bgWhite.bold;
+/**
+ * Creates an instance out of the InitializeBackend class which handles the backend 
+ * initialization according the the template.
+ */
+const initBackend = new InitializeBackend();
 
-// Creates an express app instance
-const App = express();
+initBackend.initialization(); // Calls the initialization() method which executes the initialization template.
 
-App.use(express.json()); // Parses json
-App.use(cors({origin: '*'})); // Enable cors
-App.use("/api", ApiRouter); // Define initial router
 
-connect(); // Establish Database connection
 
-const port = process.env.PORT || 3001;
-App.listen(port);
-logger.info(portCon(`🚀 Server listening on PORT ${process.env.PORT} 🚀`));
-
-export default App;
