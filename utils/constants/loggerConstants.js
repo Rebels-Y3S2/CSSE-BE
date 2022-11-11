@@ -22,6 +22,11 @@ export const LoggerConstants = {
     UPDATE_USER: "Update User Details!",
     DELETE_USER: "Delete User Details!",
 
+    // Database connections success messages
+    DB_CONNECTED:"Connected to the database!😎😊😇",
+    DB_CONNECTION_SUCCESS:"DB connection successful!😁😗🤪",
+    DB_DISCONNECTED:"Database disconnected!😥😔🤫",
+    SERVER_LISTENING_ON_PORT:"🚀 Server listening on PORT ",
 
     //-----------------------------------Error Log messages ------------------------
     //Items Error log messages
@@ -47,5 +52,9 @@ export const LoggerConstants = {
     FETCH_USER_BY_ID_ERROR: "Error in retrieving User by ID",
     UPDATE_USER_ERROR: "Error in updating User Details!",
     DELETE_USER_ERROR: "Error in deleting User Details!",
+
+    // Database Connection error message
+    DB_CONNECTION_FAILED:"DB connection failed!😡😖🤬",
+
     
 }
